@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 import Image from 'next/image';
 import LogoTitle from '../../assets/images/logo-s.png';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AnimatedLetters from '../AnimatedLetters';
 
 const Home = () => {
@@ -23,6 +23,12 @@ const Home = () => {
 		'e',
 		'r',
 	];
+
+	useEffect(() => {
+		setTimeout(() => {
+			setLetterClass('text-animate-hover');
+		}, 4000);
+	}, []);
 
 	return (
 		<div className={`container ${styles.homePage}`}>
