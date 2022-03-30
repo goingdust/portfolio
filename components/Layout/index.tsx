@@ -1,7 +1,7 @@
 import Sidebar from '../Sidebar';
 import styles from './index.module.scss';
 
-const Layout = () => {
+const Layout = (props: any) => {
 	return (
 		<div className={styles.App}>
 			<Sidebar />
