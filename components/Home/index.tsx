@@ -9,13 +9,17 @@ const Home = () => {
 			<div className={styles.textZone}>
 				<h1>
 					Hi, <br /> I&apos;m
-					<Image src={LogoTitle} alt='developer' />
+					<div className={styles.bigLetterS}>
+						<Image src={LogoTitle} alt='developer' />
+					</div>
 					lobodan
 					<br />
 					web developer
 				</h1>
 				<h2>full stack developer</h2>
-				<Link href='/contact'>CONTACT ME</Link>
+				<Link href='/contact'>
+					<a className={styles.flatButton}>CONTACT ME</a>
+				</Link>
 			</div>
 		</div>
 	);
