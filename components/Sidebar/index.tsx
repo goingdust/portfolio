@@ -23,40 +23,29 @@ const Sidebar = () => {
 				</a>
 			</Link>
 			<nav>
-				<ul>
-					<li className={router.pathname === '/' ? 'active' : ''}>
-						<Link href='/' passHref>
-							<a>
-								<FontAwesomeIcon icon={faHome} color='#4d4d4'></FontAwesomeIcon>
-							</a>
-						</Link>
-					</li>
-					<li
+				<Link href='/' passHref>
+					<a className={router.pathname === '/' ? `${styles.active}` : ''}>
+						<FontAwesomeIcon icon={faHome} color='#4d4d4'></FontAwesomeIcon>
+					</a>
+				</Link>
+				<Link href='/about' passHref>
+					<a
 						className={`${styles.aboutLink} ${
-							router.pathname === '/about' ? 'active' : ''
+							router.pathname === '/about' ? `${styles.active}` : ''
 						}`}
 					>
-						<Link href='/about' passHref>
-							<a>
-								<FontAwesomeIcon icon={faUser} color='#4d4d4'></FontAwesomeIcon>
-							</a>
-						</Link>
-					</li>
-					<li
+						<FontAwesomeIcon icon={faUser} color='#4d4d4'></FontAwesomeIcon>
+					</a>
+				</Link>
+				<Link href='/contact' passHref>
+					<a
 						className={`${styles.contactLink} ${
-							router.pathname === '/contact' ? 'active' : ''
+							router.pathname === '/contact' ? `${styles.active}` : ''
 						}`}
 					>
-						<Link href='/contact' passHref>
-							<a>
-								<FontAwesomeIcon
-									icon={faEnvelope}
-									color='#4d4d4'
-								></FontAwesomeIcon>
-							</a>
-						</Link>
-					</li>
-				</ul>
+						<FontAwesomeIcon icon={faEnvelope} color='#4d4d4'></FontAwesomeIcon>
+					</a>
+				</Link>
 			</nav>
 		</section>
 	);
