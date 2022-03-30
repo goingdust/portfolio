@@ -1,6 +1,16 @@
 import styles from './index.module.scss';
 
-const AnimatedLetters = ({ letterClass, strArray, index }) => {
+interface AnimatedLettersProps {
+	letterClass: string;
+	strArray: string[];
+	index: number;
+}
+
+const AnimatedLetters = ({
+	letterClass,
+	strArray,
+	index,
+}: AnimatedLettersProps) => {
 	return (
 		<span>
 			{strArray.map((char: string, i: number) => (
