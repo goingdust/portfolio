@@ -71,20 +71,20 @@
 
 			&:first-child {
 				&:after {
-					content: 'HOME';
+					content: 'home';
 				}
 			}
 		}
 
 		a.aboutLink {
 			&:after {
-				content: 'ABOUT';
+				content: 'about';
 			}
 		}
 
 		a.contactLink {
 			&:after {
-				content: 'CONTACT';
+				content: 'contact';
 			}
 		}
 
