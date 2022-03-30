@@ -1,0 +1,25 @@
+.navBar {
+	background: #181818;
+	width: 60px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	z-index: 3;
+	min-height: 500px;
+
+	.logoContainer {
+		display: block;
+		padding: 8px 0;
+
+		.logos {
+			display: block;
+			margin: 8px auto;
+			width: 24px;
+			height: auto;
+
+			&.subLogo {
+				width: 50px;
+			}
+		}
+	}
+}
