@@ -1,1 +1,37 @@
 @import '@styles/colors';
+
+.underline {
+  width: 0;
+	height: 1px;
+	background: $apricot;
+}
+
+.mouseEnter {
+	animation-fill-mode: forwards;
+	animation-name: moveToRight;
+	animation-duration: 1s;
+}
+
+.mouseLeave {
+	animation-fill-mode: backwards;
+	animation-name: moveToLeft;
+	animation-duration: 1s;
+}
+
+@keyframes moveToRight {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
+}
+
+@keyframes moveToLeft {
+	0% {
+		width: 100%;
+	}
+	100% {
+		width: 0;
+	}
+}

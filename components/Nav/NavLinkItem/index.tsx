@@ -18,9 +18,7 @@ const NavLinkItem = ({
 		<>
 			<Link href={path} passHref legacyBehavior>
 				<a
-					className={`${router.pathname === path ? styles.active : ''} ${
-						hovering ? styles.mouseEnter : styles.mouseLeave
-					}`}
+					className={`${router.pathname === path ? styles.active : ''}`}
 					onClick={onClickHandler}
 					onMouseEnter={() => setHovering(true)}
 					onMouseLeave={() => setHovering(false)}
@@ -28,7 +26,7 @@ const NavLinkItem = ({
 					{label}
 				</a>
 			</Link>
-			<br />
+			<div className={`${styles.underline} ${hovering ? styles.mouseEnter : styles.mouseLeave}`} />
 		</>
 	);
 };
