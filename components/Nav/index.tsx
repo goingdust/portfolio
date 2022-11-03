@@ -14,23 +14,33 @@ const Nav = () => {
 	return (
 		<section className={styles.navBar}>
 			<nav>
-				<ul className={styles.topNavButtons}>
-					<li>
-						<button>
-							<FontAwesomeIcon icon={faBars} />
-						</button>
-					</li>
-					<li>
-						<a target='_blank' rel='noreferrer' href='https://www.linkedin.com/in/dusty-luck'>
-							<FontAwesomeIcon icon={faLinkedin} />
-						</a>
-					</li>
-					<li>
-						<a target='_blank' rel='noreferrer' href='https://github.com/goingdust'>
-							<FontAwesomeIcon icon={faGithub} />
-						</a>
-					</li>
-				</ul>
+				<header>
+					<button className='nav-button-animate'>
+						<FontAwesomeIcon icon={faBars} />
+					</button>
+					<ul className={styles.navHeaderLinks}>
+						<li>
+							<a
+								target='_blank'
+								rel='noreferrer'
+								href='https://www.linkedin.com/in/dusty-luck'
+								className='nav-button-animate'
+							>
+								<FontAwesomeIcon icon={faLinkedin} />
+							</a>
+						</li>
+						<li>
+							<a
+								target='_blank'
+								rel='noreferrer'
+								href='https://github.com/goingdust'
+								className='nav-button-animate'
+							>
+								<FontAwesomeIcon icon={faGithub} />
+							</a>
+						</li>
+					</ul>
+				</header>
 			</nav>
 			{/* <Link href='/' passHref legacyBehavior>
 				<a className={styles.logoContainer}>
