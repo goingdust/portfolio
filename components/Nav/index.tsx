@@ -2,12 +2,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from './index.module.scss';
-import LogoS from '../../assets/images/logo-s.png';
-import LogoSubtitle from '../../assets/images/logo_sub.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUser, faEnvelope, faBars } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { useState } from 'react';
+import { GitHub, LinkedIn, Menu } from '@mui/icons-material';
 
 const Nav = () => {
 	const router = useRouter();
@@ -20,7 +16,7 @@ const Nav = () => {
 					className='nav-button-animate'
 					onClick={() => setNavVisible((prev) => (prev === undefined ? true : !prev))}
 				>
-					<FontAwesomeIcon icon="" />
+					<Menu />
 				</button>
 				<ul className={styles.navHeaderLinks}>
 					<li>
@@ -30,7 +26,7 @@ const Nav = () => {
 							href='https://www.linkedin.com/in/dusty-luck'
 							className='nav-button-animate'
 						>
-							<FontAwesomeIcon icon={faLinkedin} />
+							<LinkedIn />
 						</a>
 					</li>
 					<li>
@@ -40,7 +36,7 @@ const Nav = () => {
 							href='https://github.com/goingdust'
 							className='nav-button-animate'
 						>
-							<FontAwesomeIcon icon={faGithub} />
+							<GitHub />
 						</a>
 					</li>
 				</ul>
