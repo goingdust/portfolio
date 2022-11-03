@@ -20,7 +20,7 @@ const Nav = () => {
 					className='nav-button-animate'
 					onClick={() => setNavVisible((prev) => (prev === undefined ? true : !prev))}
 				>
-					<FontAwesomeIcon icon={faBars} />
+					<FontAwesomeIcon icon="" />
 				</button>
 				<ul className={styles.navHeaderLinks}>
 					<li>
@@ -50,29 +50,40 @@ const Nav = () => {
 					navVisible ? styles.navShow : navVisible !== undefined ? styles.navHide : 'hidden'
 				}`}
 			>
-				<Link href='/' passHref legacyBehavior>
-					<a className={router.pathname === '/' ? `${styles.active}` : ''}>
-						Home
-					</a>
-				</Link>
-				<Link href='/about' passHref legacyBehavior>
-					<a
-						className={`${styles.aboutLink} ${
-							router.pathname === '/about' ? `${styles.active}` : ''
-						}`}
-					>
-						About
-					</a>
-				</Link>
-				<Link href='/contact' passHref legacyBehavior>
-					<a
-						className={`${styles.contactLink} ${
-							router.pathname === '/contact' ? `${styles.active}` : ''
-						}`}
-					>
-						Contact
-					</a>
-				</Link>
+				<li>
+					<Link href='/' passHref legacyBehavior>
+						<a
+							className={router.pathname === '/' ? `${styles.active}` : ''}
+							onClick={() => setNavVisible(false)}
+						>
+							Home
+						</a>
+					</Link>
+				</li>
+				<li>
+					<Link href='/about' passHref legacyBehavior>
+						<a
+							className={`${styles.aboutLink} ${
+								router.pathname === '/about' ? `${styles.active}` : ''
+							}`}
+							onClick={() => setNavVisible(false)}
+						>
+							About
+						</a>
+					</Link>
+				</li>
+				<li>
+					<Link href='/contact' passHref legacyBehavior>
+						<a
+							className={`${styles.contactLink} ${
+								router.pathname === '/contact' ? `${styles.active}` : ''
+							}`}
+							onClick={() => setNavVisible(false)}
+						>
+							Contact
+						</a>
+					</Link>
+				</li>
 			</ul>
 		</nav>
 	);
