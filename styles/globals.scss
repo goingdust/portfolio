@@ -1,9 +1,4 @@
-$old-lavender: #6D6875;
-$english-lavender: #B5838D;
-$pastel-pink: #E5989B;
-$melon: #FFB4A2;
-$apricot: #FFCDB2;
-
+@import 'colors.scss';
 @import 'animate.css';
 
 @font-face {
@@ -33,30 +28,17 @@ html {
 body {
 	margin: 0;
 	font: 300 11px/1.4 'Fixedsys', 'sans-serif';
-	color: #444;
-	background: #022c43;
+	color: $old-lavender;
+	background: $apricot;
 	overflow: hidden;
 	display: block;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-input,
-textarea {
-	font-family: 'Coolvetica';
-}
-
-.container {
-	width: 100%;
-	will-change: contents;
-	height: 90%;
-	min-height: 556px;
-	position: absolute;
-	opacity: 0;
-	top: 5%;
-	margin: 0 auto;
-	z-index: 1;
-	transform-style: preserve-3d;
-	animation: fadeIn 1s forwards;
-	animation-delay: 1s;
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
 }

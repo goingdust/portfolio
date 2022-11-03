@@ -5,14 +5,33 @@ import styles from './index.module.scss';
 import LogoS from '../../assets/images/logo-s.png';
 import LogoSubtitle from '../../assets/images/logo_sub.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faEnvelope, faBars } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
-const Sidebar = () => {
+const Nav = () => {
 	const router = useRouter();
 
 	return (
 		<section className={styles.navBar}>
+			<nav>
+				<ul className={styles.topNavButtons}>
+					<li>
+						<button>
+							<FontAwesomeIcon icon={faBars} />
+						</button>
+					</li>
+					<li>
+						<a target='_blank' rel='noreferrer' href='https://www.linkedin.com/in/dusty-luck'>
+							<FontAwesomeIcon icon={faLinkedin} />
+						</a>
+					</li>
+					<li>
+						<a target='_blank' rel='noreferrer' href='https://github.com/goingdust'>
+							<FontAwesomeIcon icon={faGithub} />
+						</a>
+					</li>
+				</ul>
+			</nav>
 			{/* <Link href='/' passHref legacyBehavior>
 				<a className={styles.logoContainer}>
 					<div className={styles.logos}>
@@ -23,7 +42,7 @@ const Sidebar = () => {
 					</div>
 				</a>
 			</Link> */}
-			<nav>
+			{/* <nav>
 				<Link href='/' passHref legacyBehavior>
 					<a className={router.pathname === '/' ? `${styles.active}` : ''}>
 						<FontAwesomeIcon icon={faHome} color='#4d4d4'></FontAwesomeIcon>
@@ -48,20 +67,9 @@ const Sidebar = () => {
 					</a>
 				</Link>
 			</nav>
-			<ul>
-				<li>
-					<a target='_blank' rel='noreferrer' href='https://www.linkedin.com/in/dusty-luck'>
-						<FontAwesomeIcon icon={faLinkedin}></FontAwesomeIcon>
-					</a>
-				</li>
-				<li>
-					<a target='_blank' rel='noreferrer' href='https://github.com/goingdust'>
-						<FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
-					</a>
-				</li>
-			</ul>
+			 */}
 		</section>
 	);
 };
 
-export default Sidebar;
+export default Nav;

@@ -1,19 +1,23 @@
 import { PropsWithChildren } from 'react';
-import Sidebar from '../Sidebar';
+import Nav from '../Nav';
 import styles from './index.module.scss';
 
 const Layout = ({ children }: PropsWithChildren<{}>) => {
 	return (
 		<div className={styles.App}>
-			<Sidebar />
+			<Nav />
 			<div className={styles.page}>
-				<span className={`${styles.tags} ${styles.topTags}`}>&lt;body&gt;</span>
-				{children}
-				<span className={`${styles.tags} ${styles.bottomTags}`}>
-					&lt;/body&gt;
+				<div className={styles.topTags}>
+					<span>&lt;html&gt;</span>
 					<br />
-					<span className={styles.bottomTagHtml}>&lt;/html&gt;</span>
-				</span>
+					<span>&lt;body&gt;</span>
+				</div>
+				{children}
+				<div className={styles.bottomTags}>
+					<span>&lt;/body&gt;</span>
+					<br />
+					<span>&lt;/html&gt;</span>
+				</div>
 			</div>
 		</div>
 	);

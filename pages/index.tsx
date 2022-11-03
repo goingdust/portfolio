@@ -3,14 +3,8 @@ import type { NextPage } from 'next';
 // import Image from 'next/image'
 import Home from '../components/Home';
 
-import styles from '../styles/Home.module.scss';
-
 const HomePage: NextPage = () => {
-	return (
-		<div>
-			<Home />
-		</div>
-	);
+	return <Home />;
 };
 
 export default HomePage;

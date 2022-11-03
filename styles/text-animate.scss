@@ -1,3 +1,5 @@
+@import 'colors.scss';
+
 .text-animate {
 	display: inline-block;
 	opacity: 0;
@@ -13,7 +15,7 @@
 
 	&:hover {
 		animation: rubberBand 1s;
-		color: #ffd700;
+		color: $english-lavender;
 	}
 }
 
