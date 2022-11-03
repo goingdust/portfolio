@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styles from './index.module.scss';
 import { useState } from 'react';
 import { GitHub, LinkedIn, Menu } from '@mui/icons-material';
+import NavLinkItem from './NavLinkItem';
 
 const Nav = () => {
 	const router = useRouter();
@@ -47,38 +48,17 @@ const Nav = () => {
 				}`}
 			>
 				<li>
-					<Link href='/' passHref legacyBehavior>
-						<a
-							className={router.pathname === '/' ? `${styles.active}` : ''}
-							onClick={() => setNavVisible(false)}
-						>
-							Home
-						</a>
-					</Link>
+					<NavLinkItem path='/' onClickHandler={() => setNavVisible(false)} label='Home' />
 				</li>
 				<li>
-					<Link href='/about' passHref legacyBehavior>
-						<a
-							className={`${styles.aboutLink} ${
-								router.pathname === '/about' ? `${styles.active}` : ''
-							}`}
-							onClick={() => setNavVisible(false)}
-						>
-							About
-						</a>
-					</Link>
+					<NavLinkItem path='/about' onClickHandler={() => setNavVisible(false)} label='About' />
 				</li>
 				<li>
-					<Link href='/contact' passHref legacyBehavior>
-						<a
-							className={`${styles.contactLink} ${
-								router.pathname === '/contact' ? `${styles.active}` : ''
-							}`}
-							onClick={() => setNavVisible(false)}
-						>
-							Contact
-						</a>
-					</Link>
+					<NavLinkItem
+						path='/contact'
+						onClickHandler={() => setNavVisible(false)}
+						label='Contact'
+					/>
 				</li>
 			</ul>
 		</nav>
