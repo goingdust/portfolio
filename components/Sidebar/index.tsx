@@ -13,7 +13,7 @@ const Sidebar = () => {
 
 	return (
 		<section className={styles.navBar}>
-			<Link href='/' passHref>
+			{/* <Link href='/' passHref legacyBehavior>
 				<a className={styles.logoContainer}>
 					<div className={styles.logos}>
 						<Image src={LogoS} alt='logo' />
@@ -22,14 +22,14 @@ const Sidebar = () => {
 						<Image src={LogoSubtitle} alt='slobodan' />
 					</div>
 				</a>
-			</Link>
+			</Link> */}
 			<nav>
-				<Link href='/' passHref>
+				<Link href='/' passHref legacyBehavior>
 					<a className={router.pathname === '/' ? `${styles.active}` : ''}>
 						<FontAwesomeIcon icon={faHome} color='#4d4d4'></FontAwesomeIcon>
 					</a>
 				</Link>
-				<Link href='/about' passHref>
+				<Link href='/about' passHref legacyBehavior>
 					<a
 						className={`${styles.aboutLink} ${
 							router.pathname === '/about' ? `${styles.active}` : ''
@@ -38,7 +38,7 @@ const Sidebar = () => {
 						<FontAwesomeIcon icon={faUser} color='#4d4d4'></FontAwesomeIcon>
 					</a>
 				</Link>
-				<Link href='/contact' passHref>
+				<Link href='/contact' passHref legacyBehavior>
 					<a
 						className={`${styles.contactLink} ${
 							router.pathname === '/contact' ? `${styles.active}` : ''
@@ -50,20 +50,12 @@ const Sidebar = () => {
 			</nav>
 			<ul>
 				<li>
-					<a
-						target='_blank'
-						rel='noreferrer'
-						href='https://www.linkedin.com/in/dusty-luck'
-					>
+					<a target='_blank' rel='noreferrer' href='https://www.linkedin.com/in/dusty-luck'>
 						<FontAwesomeIcon icon={faLinkedin}></FontAwesomeIcon>
 					</a>
 				</li>
 				<li>
-					<a
-						target='_blank'
-						rel='noreferrer'
-						href='https://github.com/goingdust'
-					>
+					<a target='_blank' rel='noreferrer' href='https://github.com/goingdust'>
 						<FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
 					</a>
 				</li>

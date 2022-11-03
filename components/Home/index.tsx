@@ -56,11 +56,10 @@ const Home = () => {
 					/>
 				</h1>
 				<h2>full stack developer</h2>
-				<Link href='/contact'>
+				<Link href='/contact' passHref legacyBehavior>
 					<a className={styles.flatButton}>CONTACT ME</a>
 				</Link>
 			</div>
-			<Logo />
 		</div>
 	);
 };

@@ -1,4 +1,8 @@
-$primary-color: #ffd700;
+$old-lavender: #6D6875;
+$english-lavender: #B5838D;
+$pastel-pink: #E5989B;
+$melon: #FFB4A2;
+$apricot: #FFCDB2;
 
 @import 'animate.css';
 
@@ -17,13 +21,18 @@ $primary-color: #ffd700;
 	src: url('../assets/fonts/CoolveticaRg-Regular.woff2') format('woff2');
 }
 
+@font-face {
+	font-family: 'Fixedsys';
+	src: url('../assets/fonts/Fixedsys-Excelsior-3.01-Regular.woff') format('woff');
+}
+
 html {
 	font-size: 62.5%;
 }
 
 body {
 	margin: 0;
-	font: 300 11px/1.4 'Helvetica Neue', 'sans-serif';
+	font: 300 11px/1.4 'Fixedsys', 'sans-serif';
 	color: #444;
 	background: #022c43;
 	overflow: hidden;
