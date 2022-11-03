@@ -7,41 +7,51 @@ import LogoSubtitle from '../../assets/images/logo_sub.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUser, faEnvelope, faBars } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { useState } from 'react';
 
 const Nav = () => {
 	const router = useRouter();
+	const [navVisible, setNavVisible] = useState<boolean>();
 
 	return (
-		<section className={styles.navBar}>
-			<nav>
-				<header>
-					<button className='nav-button-animate'>
-						<FontAwesomeIcon icon={faBars} />
-					</button>
-					<ul className={styles.navHeaderLinks}>
-						<li>
-							<a
-								target='_blank'
-								rel='noreferrer'
-								href='https://www.linkedin.com/in/dusty-luck'
-								className='nav-button-animate'
-							>
-								<FontAwesomeIcon icon={faLinkedin} />
-							</a>
-						</li>
-						<li>
-							<a
-								target='_blank'
-								rel='noreferrer'
-								href='https://github.com/goingdust'
-								className='nav-button-animate'
-							>
-								<FontAwesomeIcon icon={faGithub} />
-							</a>
-						</li>
-					</ul>
-				</header>
-			</nav>
+		<nav className={styles.navBar}>
+			<header>
+				<button
+					className='nav-button-animate'
+					onClick={() => setNavVisible((prev) => (prev === undefined ? true : !prev))}
+				>
+					<FontAwesomeIcon icon={faBars} />
+				</button>
+				<ul className={styles.navHeaderLinks}>
+					<li>
+						<a
+							target='_blank'
+							rel='noreferrer'
+							href='https://www.linkedin.com/in/dusty-luck'
+							className='nav-button-animate'
+						>
+							<FontAwesomeIcon icon={faLinkedin} />
+						</a>
+					</li>
+					<li>
+						<a
+							target='_blank'
+							rel='noreferrer'
+							href='https://github.com/goingdust'
+							className='nav-button-animate'
+						>
+							<FontAwesomeIcon icon={faGithub} />
+						</a>
+					</li>
+				</ul>
+			</header>
+			<ul
+				className={`${styles.navDisplay} ${
+					navVisible ? styles.navShow : navVisible !== undefined ? styles.navHide : ''
+				}`}
+			>
+				<li>Home</li>
+			</ul>
 			{/* <Link href='/' passHref legacyBehavior>
 				<a className={styles.logoContainer}>
 					<div className={styles.logos}>
@@ -78,7 +88,7 @@ const Nav = () => {
 				</Link>
 			</nav>
 			 */}
-		</section>
+		</nav>
 	);
 };
 
