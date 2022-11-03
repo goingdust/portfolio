@@ -47,25 +47,12 @@ const Nav = () => {
 			</header>
 			<ul
 				className={`${styles.navDisplay} ${
-					navVisible ? styles.navShow : navVisible !== undefined ? styles.navHide : ''
+					navVisible ? styles.navShow : navVisible !== undefined ? styles.navHide : 'hidden'
 				}`}
 			>
-				<li>Home</li>
-			</ul>
-			{/* <Link href='/' passHref legacyBehavior>
-				<a className={styles.logoContainer}>
-					<div className={styles.logos}>
-						<Image src={LogoS} alt='logo' />
-					</div>
-					<div className={`${styles.logos} ${styles.subLogo}`}>
-						<Image src={LogoSubtitle} alt='slobodan' />
-					</div>
-				</a>
-			</Link> */}
-			{/* <nav>
 				<Link href='/' passHref legacyBehavior>
 					<a className={router.pathname === '/' ? `${styles.active}` : ''}>
-						<FontAwesomeIcon icon={faHome} color='#4d4d4'></FontAwesomeIcon>
+						Home
 					</a>
 				</Link>
 				<Link href='/about' passHref legacyBehavior>
@@ -74,7 +61,7 @@ const Nav = () => {
 							router.pathname === '/about' ? `${styles.active}` : ''
 						}`}
 					>
-						<FontAwesomeIcon icon={faUser} color='#4d4d4'></FontAwesomeIcon>
+						About
 					</a>
 				</Link>
 				<Link href='/contact' passHref legacyBehavior>
@@ -83,11 +70,10 @@ const Nav = () => {
 							router.pathname === '/contact' ? `${styles.active}` : ''
 						}`}
 					>
-						<FontAwesomeIcon icon={faEnvelope} color='#4d4d4'></FontAwesomeIcon>
+						Contact
 					</a>
 				</Link>
-			</nav>
-			 */}
+			</ul>
 		</nav>
 	);
 };

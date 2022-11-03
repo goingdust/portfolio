@@ -40,25 +40,33 @@
 	margin-top: -6.75rem;
 	position: absolute;
 	display: flex;
+	list-style: none;
+	padding: 10em 2em;
+	flex-direction: column;
+
+  a {
+    text-decoration: none;
+    color: $apricot;
+    font-size: 3rem;
+  }
 }
 
 .navShow {
 	animation-fill-mode: forwards;
 	animation-name: showFromLeft;
-	animation-duration: 2s;
+	animation-duration: 1s;
 }
 
 .navHide {
 	animation-fill-mode: forwards;
 	animation-name: hideToLeft;
-	animation-duration: 2s;
+	animation-duration: 1s;
 }
 
 @keyframes showFromLeft {
 	0% {
 		left: -100vw;
 		opacity: 0;
-		visibility: hidden;
 	}
 	100% {
 		left: 0;
@@ -74,6 +82,5 @@
 	100% {
 		left: -100vw;
 		opacity: 0;
-		visibility: hidden;
 	}
 }
