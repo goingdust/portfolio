@@ -44,24 +44,29 @@
 	padding: 10em 2em;
 	flex-direction: column;
 
+  li {
+    margin: 0.5rem 0;
+  }
+
   a {
     text-decoration: none;
     color: $apricot;
     font-size: 3rem;
     width: min-content;
+    line-height: 3.5rem;
   }
 }
 
 .navShow {
 	animation-fill-mode: forwards;
 	animation-name: showFromLeft;
-	animation-duration: 1s;
+	animation-duration: 0.5s;
 }
 
 .navHide {
 	animation-fill-mode: forwards;
 	animation-name: hideToLeft;
-	animation-duration: 1s;
+	animation-duration: 0.5s;
 }
 
 @keyframes showFromLeft {

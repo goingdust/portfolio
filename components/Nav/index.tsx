@@ -1,13 +1,9 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
 import styles from './index.module.scss';
 import { useState } from 'react';
-import { GitHub, LinkedIn, Menu } from '@mui/icons-material';
+import { GitHub, LinkedIn, Menu, MenuOpen } from '@mui/icons-material';
 import NavLinkItem from './NavLinkItem';
 
 const Nav = () => {
-	const router = useRouter();
 	const [navVisible, setNavVisible] = useState<boolean>();
 
 	return (
@@ -16,8 +12,9 @@ const Nav = () => {
 				<button
 					className='nav-button-animate'
 					onClick={() => setNavVisible((prev) => (prev === undefined ? true : !prev))}
+					aria-label={navVisible ? 'Close Nav Menu' : 'Nav Menu'}
 				>
-					<Menu />
+					{navVisible ? <MenuOpen /> : <Menu />}
 				</button>
 				<ul className={styles.navHeaderLinks}>
 					<li>
@@ -26,6 +23,7 @@ const Nav = () => {
 							rel='noreferrer'
 							href='https://www.linkedin.com/in/dusty-luck'
 							className='nav-button-animate'
+							aria-label='LinkedIn'
 						>
 							<LinkedIn />
 						</a>
@@ -36,6 +34,7 @@ const Nav = () => {
 							rel='noreferrer'
 							href='https://github.com/goingdust'
 							className='nav-button-animate'
+							aria-label='GitHub'
 						>
 							<GitHub />
 						</a>
