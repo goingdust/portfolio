@@ -4,7 +4,7 @@ import LogoTitle from '../../assets/images/logo-s.png';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import AnimatedLetters from '../AnimatedLetters';
-import Logo from './Logo';
+import Avatar from '../../assets/images/8bitpix.png';
 
 const Home = () => {
 	const [letterClass, setLetterClass] = useState('text-animate');
@@ -18,18 +18,23 @@ const Home = () => {
 	}, []);
 
 	return (
-		<div className={`container ${styles.homePage}`}>
-			<h1>
-				<span className={letterClass}>H</span>
-				<span className={`${letterClass} _12`}>i,</span>
-				<br />
-				<span className={`${letterClass} _13`}>I</span>
-				<span className={`${letterClass} _14`}>&apos;m</span>{' '}
-				<AnimatedLetters letterClass={letterClass} strArray={nameArray} index={15} />
-				<br />
-				<AnimatedLetters letterClass={letterClass} strArray={jobArray} index={25} />
-			</h1>
-			<h2>full stack developer</h2>
+		<div className={styles.homePage}>
+			<div className={styles.contentContainer}>
+				<div>
+					<h1>
+						<span className={letterClass}>H</span>
+						<span className={`${letterClass} _12`}>i,</span>
+						<br />
+						<span className={`${letterClass} _13`}>I</span>
+						<span className={`${letterClass} _14`}>&apos;m</span>{' '}
+						<AnimatedLetters letterClass={letterClass} strArray={nameArray} index={15} />
+						<br />
+						<AnimatedLetters letterClass={letterClass} strArray={jobArray} index={25} />
+					</h1>
+					<h2>full stack developer</h2>
+				</div>
+				<Image src={Avatar} alt='8 bit avatar' />
+			</div>
 			<Link href='/contact' passHref legacyBehavior>
 				<a className={styles.flatButton}>CONTACT ME</a>
 			</Link>

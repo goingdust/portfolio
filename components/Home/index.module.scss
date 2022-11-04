@@ -1,26 +1,39 @@
 @import '@styles/colors';
 
 .homePage {
-  display: flex;
-  justify-content: center;
+  height: 100%;
+  width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+  align-items: center;
+  gap: 4rem;
 	will-change: contents;
 	transform-style: preserve-3d;
 	animation: fadeIn 1s forwards;
 	animation-delay: 1s;
 
-	h1 {
-		color: $old-lavender;
-		font-size: 3rem;
-		margin: 0;
-		font-weight: 400;
-	}
+	.contentContainer {
+		display: flex;
+    align-items: center;
+    justify-content: center;
+		flex-wrap: wrap;
+    gap: 4rem;
+    
+		h1 {
+			color: $old-lavender;
+			font-size: 3rem;
+			margin: 0;
+			font-weight: 400;
+		}
 
-	h2 {
-		color: $old-lavender;
-		margin-top: 20px;
-		font-weight: 400;
-		font-size: 2rem;
-		letter-spacing: 0.25rem;
+		h2 {
+			color: $old-lavender;
+			margin-top: 20px;
+			font-weight: 400;
+			font-size: 2rem;
+			letter-spacing: 0.25rem;
+		}
 	}
 
 	.flatButton {
@@ -30,9 +43,10 @@
 		letter-spacing: 4px;
 		text-decoration: none;
 		padding: 1rem 1.5rem;
-    width: min-content;
+		width: min-content;
 		border: 1px solid $english-lavender;
 		white-space: nowrap;
+		align-self: center;
 
 		&:hover {
 			background: $english-lavender;

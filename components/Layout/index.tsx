@@ -7,7 +7,7 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
 		<div className={styles.App}>
 			<Nav />
 			<div className={styles.pageContainer}>
-				<div>
+				<div className={styles.innerContainer}>
 					<div className={styles.topTags}>
 						<span>&lt;html&gt;</span>
 						<br />
