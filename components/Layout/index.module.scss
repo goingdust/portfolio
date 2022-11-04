@@ -6,42 +6,50 @@
 	width: 100vw;
 }
 
-.page {
+.pageContainer {
 	width: 100%;
 	height: 100%;
-	display: flex;
-  flex-direction: column;
-  padding: 10em 5em;
+	padding: calc(15em - 1.5rem) 5em calc(15em - 7rem) 5em;
 
-  .topTags {
-    display: flex;
-    flex-direction: column;
-    opacity: 0.6;
-    margin-bottom: 2em;
+	div {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
 
-    span {
-      font-size: 1.5rem;
-    }
+		main {
+			flex: 1;
+      margin: 1rem 0 1rem 4rem;
+		}
 
-    :nth-child(3) {
-      margin-left: 2em;
-    }
-  }
+		.topTags {
+			display: flex;
+			flex-direction: column;
+			opacity: 0.6;
+      flex: 0;
 
-  .bottomTags {
-    display: flex;
-    flex-direction: column;
-    opacity: 0.6;
-    margin-top: 2em;
+			span {
+				font-size: 1.5rem;
+			}
 
-    span {
-      font-size: 1.5rem;
-    }
+			:nth-child(3) {
+				margin-left: 2rem;
+			}
+		}
 
-    :nth-child(1) {
-      margin-left: 2em;
-    }
-  }
+		.bottomTags {
+			display: flex;
+			flex-direction: column;
+			opacity: 0.6;
+      flex: 0;
+
+			span {
+				font-size: 1.5rem;
+			}
+
+			:nth-child(1) {
+				margin-left: 2rem;
+			}
+		}
+	}
 }
-
-

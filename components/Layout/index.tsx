@@ -6,17 +6,19 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
 	return (
 		<div className={styles.App}>
 			<Nav />
-			<div className={styles.page}>
-				<div className={styles.topTags}>
-					<span>&lt;html&gt;</span>
-					<br />
-					<span>&lt;body&gt;</span>
-				</div>
-				{children}
-				<div className={styles.bottomTags}>
-					<span>&lt;/body&gt;</span>
-					<br />
-					<span>&lt;/html&gt;</span>
+			<div className={styles.pageContainer}>
+				<div>
+					<div className={styles.topTags}>
+						<span>&lt;html&gt;</span>
+						<br />
+						<span>&lt;body&gt;</span>
+					</div>
+					<main>{children}</main>
+					<div className={styles.bottomTags}>
+						<span>&lt;/body&gt;</span>
+						<br />
+						<span>&lt;/html&gt;</span>
+					</div>
 				</div>
 			</div>
 		</div>
