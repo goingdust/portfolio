@@ -1,4 +1,5 @@
 @import '@styles/colors';
+@import '@styles/mixins';
 
 .navBar {
 	position: fixed;
@@ -8,7 +9,7 @@
 		display: flex;
 		align-items: center;
 		height: 7rem;
-    padding: 0 1.5rem;
+		padding: 0 1.5rem;
 		gap: 1.5rem;
 
 		.light::before {
@@ -54,8 +55,8 @@
 	position: absolute;
 	display: flex;
 	list-style: none;
-	padding: 10em 2em;
 	flex-direction: column;
+	@include main-content-padding;
 
 	li {
 		margin: 0.5rem 0;
