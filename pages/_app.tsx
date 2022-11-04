@@ -1,7 +1,4 @@
 import '../styles/globals.scss';
-import '../styles/text-animate.scss';
-import '../styles/nav-button-animate.scss';
-import 'animate.css';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import Head from 'next/head';
