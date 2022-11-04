@@ -1,6 +1,6 @@
 @import 'colors';
 @import 'animate.css';
-@import 'media-queries';
+@import 'mixins';
 @import 'nav-button-animate';
 @import 'text-animate';
 
@@ -26,6 +26,12 @@
 
 html { 
 	box-sizing: border-box;
+  @include for_breakpoint(tablet) {
+    font-size: 14px;
+  }
+  @include for_breakpoint(mobile) {
+    font-size: 12px;
+  }
 }
 
 *, *:before, *:after {

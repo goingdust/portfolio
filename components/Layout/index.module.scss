@@ -17,7 +17,7 @@
 
 		main {
 			flex: 1;
-      margin: 1rem 4rem;
+      margin: 1rem 0;
 		}
 
 		.topTags {
@@ -25,6 +25,7 @@
 			flex-direction: column;
 			opacity: 0.6;
       flex: 0;
+      line-height: normal;
 
 			span {
 				font-size: 1.5rem;
@@ -40,6 +41,7 @@
 			flex-direction: column;
 			opacity: 0.6;
       flex: 0;
+      line-height: normal;
 
 			span {
 				font-size: 1.5rem;

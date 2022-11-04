@@ -1,3 +1,55 @@
 @mixin main-content-padding {
-  padding: calc(10rem - 1.5rem) 3rem calc(10rem - 7rem) 3rem;
+	padding: calc(10rem - 1.5rem) 3rem calc(10rem - 7rem) 3rem;
+}
+
+// Media Queries
+// NOTE -- if using multiple, have to write them in opposite order
+
+$size__site_content_width: 1024px;
+
+$media_queries: (
+	mobile: (
+		max-width: 667px,
+	),
+	tablet: (
+		min-width: 668px,
+	)
+	and
+	(
+		max-width: $size__site_content_width,
+	),
+	desktop: (
+		min-width: calc($size__site_content_width + 1px),
+	),
+	retina2: (
+		-webkit-min-device-pixel-ratio: 2,
+	)
+	and
+	(
+		min-resolution: 192dpi,
+	),
+	retina3: (
+		-webkit-min-device-pixel-ratio: 3,
+	)
+	and
+	(
+		min-resolution: 288dpi,
+	),
+	landscape: (
+		orientation: landscape,
+	),
+	portrait: (
+		orientation: portrait,
+	),
+);
+
+@mixin for_breakpoint($breakpoints) {
+	$conditions: ();
+	@each $breakpoint in $breakpoints {
+		$conditions: append($conditions, #{inspect(map-get($media_queries, $breakpoint))}, comma);
+	}
+
+	@media #{$conditions} {
+		@content;
+	}
 }
