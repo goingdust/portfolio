@@ -10,7 +10,7 @@ const Nav = () => {
 		<nav className={styles.navBar}>
 			<header>
 				<button
-					className='nav-button-animate'
+					className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
 					onClick={() => setNavVisible((prev) => (prev === undefined ? true : !prev))}
 					aria-label={navVisible ? 'Close Nav Menu' : 'Nav Menu'}
 				>
@@ -22,7 +22,7 @@ const Nav = () => {
 							target='_blank'
 							rel='noreferrer'
 							href='https://www.linkedin.com/in/dusty-luck'
-							className='nav-button-animate'
+							className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
 							aria-label='LinkedIn'
 						>
 							<LinkedIn />
@@ -33,7 +33,7 @@ const Nav = () => {
 							target='_blank'
 							rel='noreferrer'
 							href='https://github.com/goingdust'
-							className='nav-button-animate'
+							className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
 							aria-label='GitHub'
 						>
 							<GitHub />
