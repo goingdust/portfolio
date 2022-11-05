@@ -85,10 +85,12 @@
 
 @keyframes showFromLeft {
 	0% {
+    width: 0;
 		left: -100vw;
 		opacity: 0;
 	}
 	100% {
+    width: 100vw;
 		left: 0;
 		opacity: 1;
 	}
@@ -96,10 +98,12 @@
 
 @keyframes hideToLeft {
 	0% {
+    width: 100vw;
 		left: 0;
 		opacity: 1;
 	}
 	100% {
+    width: 0;
 		left: -100vw;
 		opacity: 0;
 	}
