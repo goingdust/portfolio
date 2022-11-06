@@ -1,6 +1,5 @@
 import styles from './index.module.scss';
 import Image from 'next/image';
-import LogoTitle from '../../assets/images/logo-s.png';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import AnimatedLetters from '../AnimatedLetters';
@@ -8,7 +7,8 @@ import Avatar from '../../assets/images/8bitpix.png';
 
 const Home = () => {
 	const [h1Finished, setH1Finished] = useState(false);
-	const h1TypingDelay = 3000; // determined by (num of characters * 0.15s)
+	const [avatarImgClass, setAvatarImgClass] = useState('initial-avatar-animate');
+	const h1TypingDelay = 2800; // determined by (num of characters * typing speed + animation delay) in /styles/_variables.scss
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
@@ -24,7 +24,12 @@ const Home = () => {
 					<h1 className={`${h1Finished ? styles.hide : ''}`} />
 					<h2 className={`${h1Finished ? styles.show : ''}`} />
 				</div>
-				<Image src={Avatar} alt='8 bit avatar' className='avatar-animate' />
+				<Image
+					src={Avatar}
+					alt='8 bit avatar'
+					className={avatarImgClass}
+					onMouseEnter={() => setAvatarImgClass('avatar-hover-animate')}
+				/>
 			</div>
 			<Link href='/contact' passHref legacyBehavior>
 				<a className={styles.flatButton}>CONTACT ME</a>

@@ -1,0 +1,25 @@
+// for Home header typing animations
+
+$type-speed: 0.1;
+$default-delay: 0.5;
+
+$greeting: "Hi, I'm Dusty Luck.";
+$speeds1: (
+	type: $type-speed,
+);
+$options1: (
+	iterations: 0,
+	delay: $default-delay,
+);
+
+$h2-delay: calc((str-length($greeting) * $type-speed) + $default-delay + calc($type-speed * 6));
+$job-title: 'Front End Developer';
+$speeds2: (
+	type: $type-speed,
+);
+$options2: (
+	iterations: 0,
+	delay: $h2-delay,
+);
+
+$h2-animation-time: calc($h2-delay + (str-length($job-title) * $type-speed));

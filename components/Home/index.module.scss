@@ -1,27 +1,7 @@
 @import '@styles/colors';
 @import '@styles/mixins';
 @import '@styles/typed';
-
-$type-speed: 0.15;
-$defaultDelay: 0;
-
-$greeting: "Hi, I'm Dusty Luck.";
-$speeds1: (
-	type: $type-speed,
-);
-$options1: (
-	iterations: 0,
-	delay: $defaultDelay,
-);
-
-$job-title: 'Front End Developer';
-$speeds2: (
-	type: $type-speed,
-);
-$options2: (
-	iterations: 0,
-	delay: calc((str-length($greeting) * $type-speed) + $defaultDelay + calc($type-speed * 3)),
-);
+@import '@styles/variables';
 
 .homePage {
 	height: 100%;
