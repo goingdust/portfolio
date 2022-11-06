@@ -31,48 +31,49 @@
 				animation-name: loadingBar;
 				animation-duration: 2s;
 			}
-		}
 
-		.progressBar::before {
-			z-index: -1;
-			content: '';
-			position: absolute;
-			width: calc(100% + 0.2rem);
-			height: calc(100% + 0.2rem);
-			left: 0.5rem;
-			top: 0.5rem;
-			background: $old-lavender-faded;
+			&::before {
+				z-index: -1;
+				content: '';
+				position: absolute;
+				width: calc(100% + 0.2rem);
+				height: calc(100% + 0.2rem);
+				left: 0.5rem;
+				top: 0.5rem;
+				background: $old-lavender-faded;
+			}
 		}
 
 		.loaderText {
 			margin-top: 1rem;
-		}
 
-		.loaderText::after {
-			font-size: 1.75rem;
-			content: '';
-			animation-fill-mode: forwards;
-			animation-name: loadingText;
-			animation-duration: 2s;
+			&::after {
+				font-size: 1.75rem;
+				content: '';
+				animation-fill-mode: forwards;
+				animation-name: loadingText;
+				animation-duration: 2s;
+			}
 		}
 
 		.percent {
 			margin-bottom: 0.5rem;
 			align-self: flex-start;
-		}
 
-		.percent::after {
-			font-size: 1.5rem;
-			content: '';
-			animation-fill-mode: forwards;
-			animation-name: zeroToOneHundred;
-			animation-duration: 2s;
+			&::after {
+				font-size: 1.5rem;
+				content: '';
+				animation-fill-mode: forwards;
+				animation-name: zeroToOneHundred;
+				animation-duration: 2s;
+			}
 		}
 	}
 }
 
 @keyframes loadingText {
-	0%, 60% {
+	0%,
+	60% {
 		content: 'Building...';
 	}
 	90%,

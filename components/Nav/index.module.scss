@@ -31,10 +31,10 @@
 
 			a {
 				width: 4rem;
-			}
 
-			a::before {
-				width: 4rem;
+				&::before {
+					width: 4rem;
+				}
 			}
 		}
 
