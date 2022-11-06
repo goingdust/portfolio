@@ -24,7 +24,7 @@ const Home = () => {
 					<h1 className={`${h1Finished ? styles.hide : ''}`} />
 					<h2 className={`${h1Finished ? styles.show : ''}`} />
 				</div>
-				<Image src={Avatar} alt='8 bit avatar' />
+				<Image src={Avatar} alt='8 bit avatar' className='avatar-animate' />
 			</div>
 			<Link href='/contact' passHref legacyBehavior>
 				<a className={styles.flatButton}>CONTACT ME</a>

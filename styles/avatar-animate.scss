@@ -1,0 +1,26 @@
+.avatar-animate {
+	&:hover {
+		animation: headShake 1s forwards, shiftyLooks 2s 1s forwards, bounceOutRight 1s 2s forwards;
+	}
+
+  &:not(:hover) {
+    animation: bounceInRight 1s forwards;
+  }
+}
+
+@keyframes shiftyLooks {
+	10%,
+	20% {
+		transform: scaleX(-1);
+		scale: 100%;
+	}
+	30%,
+	40% {
+		transform: scaleX(1);
+		scale: 100%;
+	}
+	80% {
+		transform: rotate(10deg);
+		scale: 105%;
+	}
+}
