@@ -50,8 +50,8 @@ $__typed-pauses-chars: (fwd: "\200b", bwd: "\200c", both: "\feff");
 	// 	content: $string;
 	// 	alt: "#{$alt-text}";
 	// }
-	content: "​#{__typed-sanitize-pause-chars($prefix)}#{__typed-sanitize-pause-chars($string)}";
-	content: "​#{__typed-sanitize-pause-chars($prefix)}#{__typed-sanitize-pause-chars($string)}" / "#{__typed-sanitize-pause-chars($alt-text)}";
+	content: "#{__typed-sanitize-pause-chars($prefix)}#{__typed-sanitize-pause-chars($string)}";
+	content: "#{__typed-sanitize-pause-chars($prefix)}#{__typed-sanitize-pause-chars($string)}" / "#{__typed-sanitize-pause-chars($alt-text)}";
 	alt: "#{__typed-sanitize-pause-chars($alt-text)}";
 }
 @mixin __typed-spread-styles($styles: (), $nth: null, $addtl-styles...) {
