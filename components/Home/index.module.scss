@@ -10,14 +10,14 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 4rem;
+	gap: 3rem;
 
 	.contentContainer {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
-		gap: 2rem;
+		gap: 3rem;
 
 		h1 {
 			color: $old-lavender;
@@ -37,7 +37,7 @@
 			margin-top: 20px;
 			font-weight: 400;
 			font-size: 2rem;
-			letter-spacing: 0.25rem;
+			letter-spacing: 0.5rem;
 			visibility: hidden;
 			@include typed($job-title, $speeds2, $options2);
 
@@ -47,20 +47,20 @@
 		}
 
 		img {
-			width: 10rem;
-			height: 10rem;
+			width: 12rem;
+			height: 12rem;
 		}
 	}
 
 	.flatButton {
 		color: $english-lavender;
-		font-size: 1rem;
+		font-size: 1.25rem;
 		font-weight: 400;
-		letter-spacing: 4px;
+		letter-spacing: 0.25rem;
 		text-decoration: none;
-		padding: 1rem 1.5rem;
-		width: min-content;
-		border: 1px solid $english-lavender;
+		padding: 1rem 1.25rem 1rem 1.5rem;
+		width: fit-content;
+		border: 0.15rem solid $english-lavender;
 		white-space: nowrap;
 		align-self: center;
 

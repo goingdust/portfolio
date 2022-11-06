@@ -93,6 +93,7 @@
 	padding-left: 0;
 	opacity: 0;
 	background: $apricot;
+  pointer-events: none;
 }
 
 @keyframes showFromLeft {
