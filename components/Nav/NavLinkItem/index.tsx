@@ -7,10 +7,12 @@ const NavLinkItem = ({
 	path,
 	onClickHandler,
 	label,
+	navVisible,
 }: {
 	path: string;
 	onClickHandler: () => void;
 	label: string;
+	navVisible?: boolean;
 }) => {
 	const router = useRouter();
 	const [hovering, setHovering] = useState(false);
@@ -26,7 +28,11 @@ const NavLinkItem = ({
 					{label}
 				</a>
 			</Link>
-			<div className={`${styles.underline} ${hovering ? styles.mouseEnter : styles.mouseLeave}`} />
+			<div
+				className={`${styles.underline} ${hovering ? styles.mouseEnter : styles.mouseLeave} ${
+					navVisible === false ? styles.mouseLeave : ''
+				}`}
+			/>
 		</>
 	);
 };

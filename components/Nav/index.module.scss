@@ -74,37 +74,39 @@
 .navShow {
 	animation-fill-mode: forwards;
 	animation-name: showFromLeft;
-	animation-duration: 0.5s;
+	animation-duration: 1s;
 }
 
 .navHide {
 	animation-fill-mode: forwards;
 	animation-name: hideToLeft;
-	animation-duration: 0.5s;
+	animation-duration: 1s;
 }
 
 @keyframes showFromLeft {
 	0% {
-    width: 0;
-		left: -100vw;
+		width: 0;
+    padding-right: 0;
+    padding-left: 0;
 		opacity: 0;
+    background: $apricot;
 	}
 	100% {
-    width: 100vw;
-		left: 0;
+		width: 100vw;
 		opacity: 1;
 	}
 }
 
 @keyframes hideToLeft {
 	0% {
-    width: 100vw;
-		left: 0;
+		width: 100vw;
 		opacity: 1;
 	}
 	100% {
-    width: 0;
-		left: -100vw;
+		width: 0;
+    padding-right: 0;
+    padding-left: 0;
 		opacity: 0;
+    background: $apricot;
 	}
 }

@@ -1,17 +1,25 @@
 import styles from './index.module.scss';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { GitHub, LinkedIn, Menu, MenuOpen } from '@mui/icons-material';
 import NavLinkItem from './NavLinkItem';
 
 const Nav = () => {
 	const [navVisible, setNavVisible] = useState<boolean>();
 
+	const headerNavLinkItemClickHandler = useCallback(() => {
+		setNavVisible((prev) => (prev === undefined ? true : !prev));
+	}, []);
+
+	const navLinkItemClickHandler = useCallback(() => {
+		setNavVisible(false);
+	}, []);
+
 	return (
 		<nav className={styles.navBar}>
 			<header>
 				<button
 					className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
-					onClick={() => setNavVisible((prev) => (prev === undefined ? true : !prev))}
+					onClick={headerNavLinkItemClickHandler}
 					aria-label={navVisible ? 'Close Nav Menu' : 'Nav Menu'}
 				>
 					{navVisible ? <MenuOpen /> : <Menu />}
@@ -24,6 +32,7 @@ const Nav = () => {
 							href='https://www.linkedin.com/in/dusty-luck'
 							className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
 							aria-label='LinkedIn'
+							onClick={headerNavLinkItemClickHandler}
 						>
 							<LinkedIn />
 						</a>
@@ -35,6 +44,7 @@ const Nav = () => {
 							href='https://github.com/goingdust'
 							className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
 							aria-label='GitHub'
+							onClick={headerNavLinkItemClickHandler}
 						>
 							<GitHub />
 						</a>
@@ -47,16 +57,27 @@ const Nav = () => {
 				}`}
 			>
 				<li>
-					<NavLinkItem path='/' onClickHandler={() => setNavVisible(false)} label='Home' />
+					<NavLinkItem
+						path='/'
+						onClickHandler={navLinkItemClickHandler}
+						label='Home'
+						navVisible={navVisible}
+					/>
 				</li>
 				<li>
-					<NavLinkItem path='/about' onClickHandler={() => setNavVisible(false)} label='About' />
+					<NavLinkItem
+						path='/about'
+						onClickHandler={navLinkItemClickHandler}
+						label='About'
+						navVisible={navVisible}
+					/>
 				</li>
 				<li>
 					<NavLinkItem
 						path='/contact'
-						onClickHandler={() => setNavVisible(false)}
+						onClickHandler={navLinkItemClickHandler}
 						label='Contact'
+						navVisible={navVisible}
 					/>
 				</li>
 			</ul>
