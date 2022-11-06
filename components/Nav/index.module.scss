@@ -78,35 +78,37 @@
 }
 
 .navHide {
-	animation-fill-mode: forwards;
+	@extend .navShow;
 	animation-name: hideToLeft;
-	animation-duration: 1s;
+}
+
+@mixin visibleValues {
+	width: 100vw;
+	opacity: 1;
+}
+
+@mixin hiddenValues {
+	width: 0;
+	padding-right: 0;
+	padding-left: 0;
+	opacity: 0;
+	background: $apricot;
 }
 
 @keyframes showFromLeft {
 	0% {
-		width: 0;
-    padding-right: 0;
-    padding-left: 0;
-		opacity: 0;
-    background: $apricot;
+		@include hiddenValues();
 	}
 	100% {
-		width: 100vw;
-		opacity: 1;
+		@include visibleValues();
 	}
 }
 
 @keyframes hideToLeft {
 	0% {
-		width: 100vw;
-		opacity: 1;
+		@include visibleValues();
 	}
 	100% {
-		width: 0;
-    padding-right: 0;
-    padding-left: 0;
-		opacity: 0;
-    background: $apricot;
+		@include hiddenValues();
 	}
 }
