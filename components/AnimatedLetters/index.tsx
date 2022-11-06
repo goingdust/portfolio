@@ -1,20 +1,14 @@
 import styles from './index.module.scss';
 
 interface AnimatedLettersProps {
-	letterClass: string;
-	strArray: string[];
-	index: number;
+	string: string;
 }
 
-const AnimatedLetters = ({
-	letterClass,
-	strArray,
-	index,
-}: AnimatedLettersProps) => {
+const AnimatedLetters = ({ string }: AnimatedLettersProps) => {
 	return (
 		<span>
-			{strArray.map((char: string, i: number) => (
-				<span key={char + i} className={`${letterClass} _${i + index}`}>
+			{string.split('').map((char: string, index: number) => (
+				<span key={index} className='text-animate-hover'>
 					{char}
 				</span>
 			))}

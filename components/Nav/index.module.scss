@@ -82,12 +82,12 @@
 	animation-name: hideToLeft;
 }
 
-@mixin visibleValues {
+@mixin visible-values {
 	width: 100vw;
 	opacity: 1;
 }
 
-@mixin hiddenValues {
+@mixin hidden-values {
 	width: 0;
 	padding-right: 0;
 	padding-left: 0;
@@ -97,18 +97,18 @@
 
 @keyframes showFromLeft {
 	0% {
-		@include hiddenValues();
+		@include hidden-values;
 	}
 	100% {
-		@include visibleValues();
+		@include visible-values;
 	}
 }
 
 @keyframes hideToLeft {
 	0% {
-		@include visibleValues();
+		@include visible-values;
 	}
 	100% {
-		@include hiddenValues();
+		@include hidden-values;
 	}
 }

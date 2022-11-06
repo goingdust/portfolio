@@ -1,5 +1,27 @@
 @import '@styles/colors';
 @import '@styles/mixins';
+@import '@styles/typed';
+
+$type-speed: 0.15;
+$defaultDelay: 0;
+
+$greeting: "Hi, I'm Dusty Luck.";
+$speeds1: (
+	type: $type-speed,
+);
+$options1: (
+	iterations: 0,
+	delay: $defaultDelay,
+);
+
+$job-title: 'Front End Developer';
+$speeds2: (
+	type: $type-speed,
+);
+$options2: (
+	iterations: 0,
+	delay: calc((str-length($greeting) * $type-speed) + $defaultDelay + calc($type-speed * 3)),
+);
 
 .homePage {
 	height: 100%;
@@ -9,10 +31,6 @@
 	justify-content: center;
 	align-items: center;
 	gap: 4rem;
-	will-change: contents;
-	transform-style: preserve-3d;
-	animation: fadeIn 1s forwards;
-	animation-delay: 1s;
 
 	.contentContainer {
 		display: flex;
@@ -25,6 +43,13 @@
 			color: $old-lavender;
 			font-size: 3rem;
 			font-weight: 400;
+			@include typed($greeting, $speeds1, $options1);
+
+			&.hide {
+				&::after {
+					visibility: hidden;
+				}
+			}
 		}
 
 		h2 {
@@ -33,12 +58,18 @@
 			font-weight: 400;
 			font-size: 2rem;
 			letter-spacing: 0.25rem;
+			visibility: hidden;
+			@include typed($job-title, $speeds2, $options2);
+
+			&.show {
+				visibility: visible;
+			}
 		}
 
-    img {
-      width: 10rem;
-      height: 10rem;
-    }
+		img {
+			width: 10rem;
+			height: 10rem;
+		}
 	}
 
 	.flatButton {
