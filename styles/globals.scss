@@ -3,6 +3,7 @@
 @import 'mixins';
 @import 'nav-button-animate';
 @import 'avatar-animate';
+@import 'keyframes';
 
 @font-face {
 	font-family: 'Helvetica Neue';
@@ -24,21 +25,24 @@
 	src: url('../assets/fonts/Fixedsys-Excelsior-3.01-Regular.woff') format('woff');
 }
 
-html { 
+html {
 	box-sizing: border-box;
-  @include for_breakpoint(tablet) {
-    font-size: 14px;
-  }
-  @include for_breakpoint(mobile) {
-    font-size: 12px;
-  }
+	@include for_breakpoint(tablet) {
+		font-size: 14px;
+	}
+	@include for_breakpoint(mobile) {
+		font-size: 12px;
+	}
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
 	box-sizing: inherit;
 }
 
-body, figure {
+body,
+figure {
 	margin: 0;
 }
 
@@ -60,14 +64,19 @@ button {
 }
 
 a {
-  display: block;
+	display: block;
 }
 
 ul {
-  padding: 0;
-  margin: 0;
+	padding: 0;
+	margin: 0;
 }
 
 .hidden {
-  visibility: hidden;
+	visibility: hidden;
+}
+
+.slide-in-up {
+	animation: hideThenShow #{calc($default-delay + $h2-animation-time + 0.6)}s forwards,
+		slideInUp 1s #{calc($default-delay + $h2-animation-time + 0.5)}s forwards;
 }

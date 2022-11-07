@@ -53,7 +53,7 @@ const Home = () => {
 				/>
 			</div>
 			<Link href='/contact' passHref legacyBehavior>
-				<a className={styles.flatButton}>CONTACT ME</a>
+				<a className={`slide-in-up ${styles.flatButton}`}>CONTACT ME</a>
 			</Link>
 		</div>
 	);

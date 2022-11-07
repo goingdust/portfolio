@@ -1,0 +1,32 @@
+@keyframes shiftyLooks {
+	10%,
+	20% {
+		transform: scaleX(-1);
+		scale: 100%;
+	}
+	30%,
+	40% {
+		transform: scaleX(1);
+		scale: 100%;
+	}
+	80% {
+		transform: rotate(10deg);
+		scale: 105%;
+	}
+}
+
+@keyframes hideThenShow {
+	0%,
+	99.99% {
+		visibility: hidden;
+	}
+	100% {
+		visibility: visible;
+	}
+}
+
+@keyframes toOpaque {
+	to {
+		opacity: 1;
+	}
+}
