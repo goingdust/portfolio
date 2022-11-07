@@ -18,6 +18,7 @@
 
 		div {
 			position: relative;
+      caret-color: transparent;
 
 			&.textarea::before {
 				content: '';
@@ -43,6 +44,10 @@
         outline: none;
         color: $old-lavender;
         padding: 0.5rem 0.75rem;
+        
+        &::placeholder {
+          color: $old-lavender-faded;
+        }
 			}
 
 			textarea {
@@ -55,7 +60,11 @@
 				overflow: auto;
 				resize: none;
         color: $old-lavender;
-        padding: 0.5rem 0.75rem;
+        padding: 0.75rem;
+
+        &::placeholder {
+          color: $old-lavender-faded;
+        }
 			}
 		}
 	}
