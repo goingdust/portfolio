@@ -6,7 +6,10 @@ import Avatar from '../../assets/images/8bitpix.png';
 
 const Home = () => {
 	const [h1Finished, setH1Finished] = useState(false);
-	const [avatarImgClass, setAvatarImgClass] = useState('initial-avatar-animate');
+	const [avatarImgClass, setAvatarImgClass] = useState<string | undefined>(
+		'initial-avatar-animate'
+	);
+	const [timeoutActive, setTimeoutActive] = useState(false);
 	const h1TypingDelay = 2800; // determined by (num of characters * typing speed + animation delay) in /styles/_variables.scss
 
 	useEffect(() => {
@@ -27,7 +30,25 @@ const Home = () => {
 					src={Avatar}
 					alt='8 bit avatar'
 					className={avatarImgClass}
-					onMouseEnter={() => setAvatarImgClass('avatar-hover-animate')}
+					priority
+					onLoadingComplete={() => {
+            // remove class when initial loading animation is finished
+						setTimeout(() => {
+							setAvatarImgClass(undefined);
+						}, 5900);
+					}}
+					onMouseEnter={() => {
+            // apply hover animation if initial class has been removed
+						if (!avatarImgClass && !timeoutActive) {
+							setAvatarImgClass(undefined);
+							setAvatarImgClass('avatar-hover-animate');
+							setTimeoutActive(true);
+							setTimeout(() => {
+								setAvatarImgClass(undefined);
+								setTimeoutActive(false);
+							}, 5000);
+						}
+					}}
 				/>
 			</div>
 			<Link href='/contact' passHref legacyBehavior>

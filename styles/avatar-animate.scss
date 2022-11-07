@@ -1,17 +1,13 @@
 @import '@styles/variables';
 
 .avatar-hover-animate {
-	&:hover {
-		animation: headShake 1s forwards, shiftyLooks 2s 1s forwards, bounceOutRight 1s 2s forwards;
-	}
-
-	&:not(:hover) {
-		animation: bounceInRight 1s forwards;
-	}
+	animation: headShake 1s forwards, shiftyLooks 2s 1s forwards, bounceOutRight 1s 2s forwards,
+		bounceInRight 1s 4s forwards, stayVisible 0s forwards;
 }
 
 .initial-avatar-animate {
-  animation: bounceInRight 1s #{$h2-animation-time}s forwards, hideAvatar #{$h2-animation-time}s forwards;
+	animation: bounceInRight 1s #{$h2-animation-time}s forwards,
+		hideAvatar #{$h2-animation-time}s forwards;
 }
 
 @keyframes shiftyLooks {
@@ -32,10 +28,17 @@
 }
 
 @keyframes hideAvatar {
-  0%, 99.99% {
-    visibility: hidden;
-  }
-  100% {
-    visibility: visible;
-  }
+	0%,
+	99.99% {
+		visibility: hidden;
+	}
+	100% {
+		visibility: visible;
+	}
+}
+
+@keyframes stayVisible {
+	to {
+		opacity: 1;
+	}
 }
