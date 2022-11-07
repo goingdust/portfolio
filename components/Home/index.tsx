@@ -13,6 +13,7 @@ const Home = () => {
 	const h1TypingDelay = 2800; // determined by (num of characters * typing speed + animation delay) in /styles/_variables.scss
 
 	useEffect(() => {
+    // for tracking when to hide h1 cursor and show next line's h2 cursor
 		const timeout = setTimeout(() => {
 			setH1Finished(true);
 		}, h1TypingDelay);
