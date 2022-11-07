@@ -2,6 +2,10 @@
 	padding: calc(10rem - 1.5rem) 3rem calc(10rem - 7rem) 3rem;
 }
 
+@mixin page-container-margin {
+	margin: calc(10rem - 1.5rem) 3rem calc(10rem - 7rem) 3rem;
+}
+
 // Media Queries
 // NOTE -- if using multiple, have to write them in opposite order
 
