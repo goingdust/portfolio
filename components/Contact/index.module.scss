@@ -1,3 +1,5 @@
+@import '@styles/colors';
+
 .contactPage {
 	height: 100%;
 	width: 100%;
@@ -6,4 +8,65 @@
 	justify-content: center;
 	align-items: center;
 	gap: 3rem;
+
+	form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 1rem;
+		width: 30rem;
+
+		div {
+			position: relative;
+
+			&.textarea::before {
+				content: '';
+				position: absolute;
+				background: $old-lavender;
+				width: 30rem;
+				left: 0.25rem;
+				z-index: -1;
+        height: 24rem;
+			}
+
+      &.input::before {
+        @extend .textarea;
+        height: 3rem;
+      }
+
+      input {
+				background: $apricot;
+				border: 0.15rem solid $english-lavender;
+				height: 3rem;
+				font-size: 1.5rem;
+				width: 100%;
+        outline: none;
+        color: $old-lavender;
+        padding: 0.5rem 0.75rem;
+			}
+
+			textarea {
+				height: 24rem;
+				font-size: 1.5rem;
+				border: 0.15rem solid $english-lavender;
+				background: $apricot;
+				width: 100%;
+				outline: none;
+				overflow: auto;
+				resize: none;
+        color: $old-lavender;
+        padding: 0.5rem 0.75rem;
+			}
+		}
+	}
+}
+
+.inputFocus::before {
+	top: 0.5rem;
+	transition: 0.1s ease-in-out;
+}
+
+.inputBlur::before {
+	top: 0.25rem;
+	transition: 0.1s ease-in-out;
 }
