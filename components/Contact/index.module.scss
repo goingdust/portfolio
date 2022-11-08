@@ -18,7 +18,7 @@
 
 		div {
 			position: relative;
-      caret-color: transparent;
+			caret-color: transparent;
 
 			&.textarea::before {
 				content: '';
@@ -27,26 +27,44 @@
 				width: 30rem;
 				left: 0.25rem;
 				z-index: -1;
-        height: 24rem;
+				height: 24rem;
 			}
 
-      &.input::before {
-        @extend .textarea;
-        height: 3rem;
-      }
+			&.input::before {
+				@extend .textarea;
+				height: 3rem;
+			}
 
-      input {
+			input {
 				background: $apricot;
 				border: 0.15rem solid $english-lavender;
 				height: 3rem;
 				font-size: 1.5rem;
 				width: 100%;
-        outline: none;
-        color: $old-lavender;
-        padding: 0.5rem 0.75rem;
-        
-        &::placeholder {
-          color: $old-lavender-faded;
+				outline: none;
+				color: $old-lavender;
+				padding: 0.5rem 0.75rem;
+
+				&::placeholder {
+					color: $old-lavender-faded;
+				}
+
+				&:-webkit-autofill,
+				&:-webkit-autofill:focus,
+				&:-webkit-autofill:hover,
+				&:-webkit-autofill:active,
+				&:-internal-autofill-selected {
+					color: $old-lavender !important;
+					-webkit-text-fill-color: $old-lavender !important;
+					box-shadow: 0 0 0px 1000px $apricot inset;
+					background-color: $apricot !important;
+					background-image: none !important;
+				}
+
+        &:-webkit-autofill::first-line {
+          font-family: 'Fixedsys', 'sans-serif' !important;
+          font-size: 1.5rem !important;
+          font-weight: 400 !important;
         }
 			}
 
@@ -59,12 +77,12 @@
 				outline: none;
 				overflow: auto;
 				resize: none;
-        color: $old-lavender;
-        padding: 0.75rem;
+				color: $old-lavender;
+				padding: 0.75rem;
 
-        &::placeholder {
-          color: $old-lavender-faded;
-        }
+				&::placeholder {
+					color: $old-lavender-faded;
+				}
 			}
 		}
 	}
