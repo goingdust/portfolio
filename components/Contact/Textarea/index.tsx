@@ -1,14 +1,14 @@
-import { useCallback, useRef, useState } from 'react';
-import styled from 'styled-components';
+import { CSSProperties, useCallback, useRef, useState } from 'react';
 import getCaretCoordinates from 'textarea-caret';
+import styles from './index.module.scss';
 
 const Textarea = ({
-	styles,
+	contactStyles,
 	name,
 	id,
 	placeholder,
 }: {
-	styles: { readonly [key: string]: string };
+	contactStyles: { readonly [key: string]: string };
 	name: string;
 	id: string;
 	placeholder: string;
@@ -34,14 +34,12 @@ const Textarea = ({
 			const targetSelection =
 				target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
 			const caret = getCaretCoordinates(target, targetSelection);
-		
+
 			if (scrollHeight! + target.scrollTop < caret.top || caret.top < target.scrollTop) {
 				setHide(true);
 			} else if (target.scrollHeight > scrollHeight!) {
 				setHide(false);
-				setTop(
-					caret.top - (scrollHeight! + (target.scrollTop - scrollHeight!))
-				);
+				setTop(caret.top - (scrollHeight! + (target.scrollTop - scrollHeight!)));
 			} else {
 				setHide(false);
 				setTop(caret.top);
@@ -51,13 +49,19 @@ const Textarea = ({
 		[focused, height, scrollHeight]
 	);
 
+	const style = {
+		'--caret-top': `${top}px`,
+		'--caret-left': `${left}px`,
+		'--focused': focused ? 'block' : 'none',
+		'--caret-hidden': hide ? 'hidden' : 'visible',
+	} as CSSProperties;
+
 	return (
-		<Effect
-			focused={focused}
-			left={left}
-			top={top}
-			hide={hide}
-			className={`${styles.textarea} ${focused ? styles.inputFocus : styles.inputBlur}`}
+		<div
+			className={`${styles.caret} ${contactStyles.textarea} ${
+				focused ? contactStyles.inputFocus : contactStyles.inputBlur
+			}`}
+			style={style}
 		>
 			<textarea
 				name={name}
@@ -72,17 +76,8 @@ const Textarea = ({
 				onChange={(e) => setValue(e.target.value)}
 				onScroll={(e) => handleSelect(e.target as HTMLTextAreaElement)}
 			/>
-		</Effect>
+		</div>
 	);
 };
-
-const Effect = styled.div<{ focused: boolean; top: number; left: number; hide: boolean }>`
-	&::after {
-		${(props) => (props.focused || !props.hide ? '' : 'display: none;')}
-		top: ${(props) => props.top}px;
-		left: ${(props) => props.left}px;
-		visibility: ${(props) => (props.hide ? 'hidden' : 'visible')};
-	}
-`;
 
 export default Textarea;

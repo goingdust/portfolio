@@ -1,15 +1,15 @@
-import { useCallback, useState } from 'react';
-import styled from 'styled-components';
+import { CSSProperties, useCallback, useState } from 'react';
 import getCaretCoordinates from 'textarea-caret';
+import styles from './index.module.scss';
 
 const Input = ({
-	styles,
+	contactStyles,
 	name,
 	type,
 	id,
 	placeholder,
 }: {
-	styles: { readonly [key: string]: string };
+	contactStyles: { readonly [key: string]: string };
 	name: string;
 	type: string;
 	id: string;
@@ -50,11 +50,17 @@ const Input = ({
 		[focused, type, scrollWidth, width]
 	);
 
+	const style = {
+		'--caret-left': `${left}px`,
+		'--focused': focused ? 'block' : 'none',
+	} as CSSProperties;
+
 	return (
-		<Effect
-			focused={focused}
-			left={left}
-			className={`${styles.input} ${focused ? styles.inputFocus : styles.inputBlur}`}
+		<div
+			className={`${styles.caret} ${contactStyles.input} ${
+				focused ? contactStyles.inputFocus : contactStyles.inputBlur
+			}`}
+			style={style}
 		>
 			<input
 				type={type}
@@ -68,15 +74,8 @@ const Input = ({
 				onSelect={(e) => handleSelect(e.target as HTMLInputElement)}
 				onChange={(e) => setValue(e.target.value)}
 			/>
-		</Effect>
+		</div>
 	);
 };
-
-const Effect = styled.div<{ focused: boolean; left: number }>`
-	&::after {
-		${(props) => (props.focused ? '' : 'display: none;')}
-		left: ${(props) => props.left}px;
-	}
-`;
 
 export default Input;

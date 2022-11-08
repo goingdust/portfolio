@@ -1,0 +1,6 @@
+.caret {
+	&::after {
+		display: var(--focused);
+		left: var(--caret-left);
+	}
+}

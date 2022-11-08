@@ -11,9 +11,9 @@ const Contact = () => {
 				<input type='hidden' name='access_key' value={process.env.WEB3_FORMS_ACCESS_KEY} />
 				<input type='checkbox' name='botcheck' className='hidden' style={{ display: 'none' }} />
 
-				<Input styles={styles} name='name' type='text' id='name' placeholder='Your name' />
-				<Input styles={styles} name='email' type='text' id='email' placeholder='Email' />
-				<Textarea styles={styles} name='message' id='message' placeholder='Pour your heart out!' />
+				<Input contactStyles={styles} name='name' type='text' id='name' placeholder='Your name' />
+				<Input contactStyles={styles} name='email' type='text' id='email' placeholder='Email' />
+				<Textarea contactStyles={styles} name='message' id='message' placeholder='Pour your heart out!' />
 
 				<input type='hidden' name='redirect' value='https://web3forms.com/success' />
 
