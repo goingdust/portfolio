@@ -1,6 +1,6 @@
 .caret {
 	&::after {
-		display: var(--focused);
+		visibility: var(--focused);
 		left: var(--caret-left);
 	}
 }

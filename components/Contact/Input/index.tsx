@@ -19,7 +19,6 @@ const Input = ({
 	const [value, setValue] = useState('');
 	const [left, setLeft] = useState<number>(0);
 	const [scrollWidth, setScrollWidth] = useState<undefined | number>();
-	const [width, setWidth] = useState<undefined | number>();
 
 	const handleSelect = useCallback(
 		(target: HTMLInputElement) => {
@@ -34,9 +33,6 @@ const Input = ({
 				if (!scrollWidth) {
 					setScrollWidth(target.scrollWidth);
 				}
-				if (!width) {
-					setWidth(target.offsetWidth);
-				}
 				const targetSelection =
 					target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
 				const caret = getCaretCoordinates(target, targetSelection as number);
@@ -47,12 +43,12 @@ const Input = ({
 				}
 			}
 		},
-		[focused, type, scrollWidth, width]
+		[focused, type, scrollWidth]
 	);
 
 	const style = {
 		'--caret-left': `${left}px`,
-		'--focused': focused ? 'block' : 'none',
+		'--focused': focused ? 'visible' : 'hidden',
 	} as CSSProperties;
 
 	return (

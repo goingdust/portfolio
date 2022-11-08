@@ -19,7 +19,6 @@ const Textarea = ({
 	const [top, setTop] = useState<number>(0);
 	const [left, setLeft] = useState<number>(0);
 	const [scrollHeight, setScrollHeight] = useState<undefined | number>();
-	const [height, setHeight] = useState<undefined | number>();
 	const [hide, setHide] = useState(false);
 
 	const handleSelect = useCallback(
@@ -27,9 +26,6 @@ const Textarea = ({
 			if (!focused) return;
 			if (!scrollHeight) {
 				setScrollHeight(target.scrollHeight);
-			}
-			if (!height) {
-				setHeight(target.offsetHeight);
 			}
 			const targetSelection =
 				target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
@@ -46,14 +42,13 @@ const Textarea = ({
 			}
 			setLeft(caret.left);
 		},
-		[focused, height, scrollHeight]
+		[focused, scrollHeight]
 	);
 
 	const style = {
 		'--caret-top': `${top}px`,
 		'--caret-left': `${left}px`,
-		'--focused': focused ? 'block' : 'none',
-		'--caret-hidden': hide ? 'hidden' : 'visible',
+		'--caret-hidden': hide || !focused ? 'hidden' : 'visible',
 	} as CSSProperties;
 
 	return (
