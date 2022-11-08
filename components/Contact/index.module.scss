@@ -54,12 +54,17 @@
 
 			&::after {
 				content: '';
-				width: 1.5ch;
 				background: $old-lavender;
 				height: 1.5rem;
 				z-index: 1;
 				position: absolute;
 				animation: blinking 0.75s infinite;
+        @include for_breakpoint(tablet mobile) {
+          width: 1.25ch;
+        }
+        @include for_breakpoint(desktop) {
+          width: 1.5ch;
+        }
 			}
 
 			&.input::after {
