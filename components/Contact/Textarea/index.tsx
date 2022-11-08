@@ -20,6 +20,7 @@ const Textarea = ({
 	const [left, setLeft] = useState<number>(0);
 	const [scrollHeight, setScrollHeight] = useState<undefined | number>();
 	const [height, setHeight] = useState<undefined | number>();
+	const [hide, setHide] = useState(false);
 
 	const handleSelect = useCallback(
 		(target: HTMLTextAreaElement) => {
@@ -33,15 +34,14 @@ const Textarea = ({
 			const targetSelection =
 				target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
 			const caret = getCaretCoordinates(target, targetSelection);
-
-			if (
-				scrollHeight &&
-				height &&
-				target.scrollHeight > scrollHeight &&
-				caret.top > scrollHeight
-			) {
-				setTop(caret.top - (target.scrollHeight - scrollHeight - (height - scrollHeight)));
+			console.log(caret.top);
+			if (scrollHeight && scrollHeight + target.scrollTop < caret.top) {
+				setHide(true);
+			} else if (scrollHeight && target.scrollHeight > scrollHeight) {
+				setHide(false);
+				setTop(caret.top + -(target.scrollHeight - target.scrollTop));
 			} else {
+				setHide(false);
 				setTop(caret.top);
 			}
 			setLeft(caret.left);
@@ -54,6 +54,7 @@ const Textarea = ({
 			focused={focused}
 			left={left}
 			top={top}
+			hide={hide}
 			className={`${styles.textarea} ${focused ? styles.inputFocus : styles.inputBlur}`}
 		>
 			<textarea
@@ -67,16 +68,18 @@ const Textarea = ({
 				onBlur={() => setFocused(false)}
 				onSelect={(e) => handleSelect(e.target as HTMLTextAreaElement)}
 				onChange={(e) => setValue(e.target.value)}
+				onScroll={(e) => handleSelect(e.target as HTMLTextAreaElement)}
 			/>
 		</Effect>
 	);
 };
 
-const Effect = styled.div<{ focused: boolean; top: number; left: number }>`
+const Effect = styled.div<{ focused: boolean; top: number; left: number; hide: boolean }>`
 	&::after {
 		${(props) => (props.focused ? '' : 'display: none;')}
 		top: ${(props) => props.top}px;
 		left: ${(props) => props.left}px;
+		visibility: ${(props) => (props.hide ? 'hidden' : 'visible')};
 	}
 `;
 
