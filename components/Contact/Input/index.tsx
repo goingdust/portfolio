@@ -40,8 +40,8 @@ const Input = ({
 				const targetSelection =
 					target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
 				const caret = getCaretCoordinates(target, targetSelection as number);
-				if (scrollWidth && width && target.scrollWidth > scrollWidth) {
-					setLeft(caret.left - (target.scrollWidth - scrollWidth - (width - scrollWidth)));
+				if (target.scrollWidth > scrollWidth!) {
+					setLeft(caret.left - (scrollWidth! + (target.scrollLeft - scrollWidth!)));
 				} else {
 					setLeft(caret.left);
 				}

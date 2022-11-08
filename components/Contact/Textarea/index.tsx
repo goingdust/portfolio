@@ -34,12 +34,14 @@ const Textarea = ({
 			const targetSelection =
 				target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
 			const caret = getCaretCoordinates(target, targetSelection);
-			console.log(caret.top);
-			if (scrollHeight && scrollHeight + target.scrollTop < caret.top) {
+		
+			if (scrollHeight! + target.scrollTop < caret.top || caret.top < target.scrollTop) {
 				setHide(true);
-			} else if (scrollHeight && target.scrollHeight > scrollHeight) {
+			} else if (target.scrollHeight > scrollHeight!) {
 				setHide(false);
-				setTop(caret.top + -(target.scrollHeight - target.scrollTop));
+				setTop(
+					caret.top - (scrollHeight! + (target.scrollTop - scrollHeight!))
+				);
 			} else {
 				setHide(false);
 				setTop(caret.top);
@@ -76,7 +78,7 @@ const Textarea = ({
 
 const Effect = styled.div<{ focused: boolean; top: number; left: number; hide: boolean }>`
 	&::after {
-		${(props) => (props.focused ? '' : 'display: none;')}
+		${(props) => (props.focused || !props.hide ? '' : 'display: none;')}
 		top: ${(props) => props.top}px;
 		left: ${(props) => props.left}px;
 		visibility: ${(props) => (props.hide ? 'hidden' : 'visible')};
