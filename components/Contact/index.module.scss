@@ -1,4 +1,5 @@
 @import '@styles/colors';
+@import '@styles/mixins';
 
 .contactPage {
 	height: 100%;
@@ -14,7 +15,15 @@
 		flex-direction: column;
 		justify-content: center;
 		gap: 1rem;
-		width: 30rem;
+		@include for_breakpoint(desktop) {
+			width: 50rem;
+		}
+		@include for_breakpoint(tablet) {
+			width: 40rem;
+		}
+		@include for_breakpoint(mobile) {
+			width: 90vw;
+		}
 
 		div {
 			position: relative;
@@ -24,15 +33,43 @@
 				content: '';
 				position: absolute;
 				background: $old-lavender;
-				width: 30rem;
+				@include for_breakpoint(desktop) {
+					width: 50rem;
+				}
+				@include for_breakpoint(tablet) {
+					width: 40rem;
+				}
+				@include for_breakpoint(mobile) {
+					width: 90vw;
+				}
 				left: 0.25rem;
 				z-index: -1;
-				height: 24rem;
+				height: 30rem;
 			}
 
 			&.input::before {
 				@extend .textarea;
 				height: 3rem;
+			}
+
+			&::after {
+				content: '';
+				width: 1.5ch;
+				background: $old-lavender;
+				height: 1.5rem;
+				z-index: 1;
+				position: absolute;
+				animation: blinking 0.75s infinite;
+			}
+
+			&.input::after {
+				top: 0.7rem;
+			}
+
+			@keyframes blinking {
+				75% {
+					opacity: 0;
+				}
 			}
 
 			input {
@@ -44,6 +81,7 @@
 				outline: none;
 				color: $old-lavender;
 				padding: 0.5rem 0.75rem;
+				text-overflow: ellipsis;
 
 				&::placeholder {
 					color: $old-lavender-faded;
@@ -61,21 +99,20 @@
 					background-image: none !important;
 				}
 
-        &:-webkit-autofill::first-line {
-          font-family: 'Fixedsys', 'sans-serif' !important;
-          font-size: 1.5rem !important;
-          font-weight: 400 !important;
-        }
+				&:-webkit-autofill::first-line {
+					font-family: 'Fixedsys', 'sans-serif' !important;
+					font-size: 1.5rem !important;
+					font-weight: 400 !important;
+				}
 			}
 
 			textarea {
-				height: 24rem;
+				height: 30rem;
 				font-size: 1.5rem;
 				border: 0.15rem solid $english-lavender;
 				background: $apricot;
 				width: 100%;
 				outline: none;
-				overflow: auto;
 				resize: none;
 				color: $old-lavender;
 				padding: 0.75rem;
@@ -84,6 +121,61 @@
 					color: $old-lavender-faded;
 				}
 			}
+		}
+
+		button {
+			margin-top: 1rem;
+			align-self: center;
+			font-size: 1.5rem;
+			background: $english-lavender;
+			width: fit-content;
+			width: 10rem;
+			height: 4rem;
+			color: #fff;
+			position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+
+      img {
+        filter: invert(1);
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+
+			&::before {
+				position: absolute;
+				content: '';
+				background: $old-lavender;
+				width: 10rem;
+				height: 4rem;
+				z-index: -1;
+				left: 0.25rem;
+			}
+
+			&:hover::before {
+				top: 0.5rem;
+				transition: 0.1s ease-in-out;
+			}
+
+			&:not(:hover)::before {
+				top: 0.25rem;
+				transition: 0.1s ease-in-out;
+			}
+
+      &:active {
+        background: $melon;
+        color: $old-lavender;
+
+        img {
+          filter: invert(0);
+        }
+      }
+
+      &:active::before {
+        filter: blur(2px)
+      }
 		}
 	}
 }

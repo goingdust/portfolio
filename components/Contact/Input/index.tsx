@@ -1,40 +1,40 @@
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import getCaretCoordinates from 'textarea-caret';
 
 const Input = ({
 	styles,
 	name,
 	type,
 	id,
-  placeholder,
+	placeholder,
 }: {
 	styles: { readonly [key: string]: string };
 	name: string;
 	type: string;
 	id: string;
-  placeholder: string;
+	placeholder: string;
 }) => {
 	const [focused, setFocused] = useState(false);
 	const [value, setValue] = useState('');
-	const [cursorStart, setCursorStart] = useState<number | null>(null);
+	const [left, setLeft] = useState<number>(0);
 
 	const handleSelect = useCallback(
 		(target: HTMLInputElement) => {
-			if (!focused) {
-				setCursorStart(null);
-				return;
-			} else if (
+			if (!focused) return;
+			if (
 				type === 'text' ||
 				type === 'search' ||
 				type === 'URL' ||
 				type === 'tel' ||
 				type === 'password'
 			) {
-				if (target.selectionDirection === 'forward') {
-					setCursorStart(target.selectionEnd);
-				} else {
-					setCursorStart(target.selectionStart);
-				}
+				const targetSelection =
+					target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
+				const caret = getCaretCoordinates(target, targetSelection as number);
+				setLeft(() => {
+					return target.offsetWidth <= caret.left ? target.offsetWidth : caret.left;
+				});
 			}
 		},
 		[focused, type]
@@ -43,47 +43,37 @@ const Input = ({
 	return (
 		<Effect
 			focused={focused}
-			start={cursorStart}
+			left={left}
 			className={`${styles.input} ${focused ? styles.inputFocus : styles.inputBlur}`}
 		>
 			<input
 				type={type}
 				name={name}
-        placeholder={placeholder}
+				placeholder={placeholder}
 				id={id}
 				required
 				value={value}
 				onFocus={() => setFocused(true)}
-				onBlur={(e) => setFocused(false)}
-				onKeyDown={(e) => handleSelect(e.target as HTMLInputElement)}
-				onMouseMove={(e) => handleSelect(e.target as HTMLInputElement)}
+				onBlur={() => setFocused(false)}
 				onSelect={(e) => handleSelect(e.target as HTMLInputElement)}
 				onChange={(e) => {
-					setValue(e.target.value);
+					const charWidth = e.target.offsetWidth / 37;
+					setValue((prev) => {
+						return left >= e.target.offsetWidth - charWidth * 2 &&
+							prev.length < e.target.value.length
+							? prev
+							: e.target.value;
+					});
 				}}
 			/>
 		</Effect>
 	);
 };
 
-const Effect = styled.div<{ focused: boolean; start: number | null }>`
+const Effect = styled.div<{ focused: boolean; left: number }>`
 	&::after {
-		content: '';
-		width: 1.5ch;
-		background: #6d6875;
-		height: 1.5rem;
 		${(props) => (props.focused ? '' : 'display: none;')}
-		z-index: 1;
-		top: 0.7rem;
-		left: calc(0.95rem + ${(props) => (props.start ? (props.start >= 37 ? 55 : props.start * 1.5) : 0)}ch);
-		position: absolute;
-		animation: blinking 0.75s infinite;
-	}
-
-	@keyframes blinking {
-		75% {
-			opacity: 0;
-		}
+		left: ${(props) => props.left}px;
 	}
 `;
 
