@@ -30,3 +30,9 @@
 		opacity: 1;
 	}
 }
+
+@keyframes pointRight {
+	25% {
+		transform: translateX(0.25rem);
+	}
+}

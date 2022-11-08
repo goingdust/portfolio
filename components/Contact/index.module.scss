@@ -1,5 +1,6 @@
 @import '@styles/colors';
 @import '@styles/mixins';
+@import '@styles/keyframes';
 
 .contactPage {
 	height: 100%;
@@ -23,6 +24,12 @@
 		}
 		@include for_breakpoint(mobile) {
 			width: 90vw;
+		}
+
+		h1 {
+			align-self: flex-start;
+			font-weight: 400;
+			font-size: 3rem;
 		}
 
 		div {
@@ -59,12 +66,12 @@
 				z-index: 1;
 				position: absolute;
 				animation: blinking 0.75s infinite;
-        @include for_breakpoint(tablet mobile) {
-          width: 1.25ch;
-        }
-        @include for_breakpoint(desktop) {
-          width: 1.5ch;
-        }
+				@include for_breakpoint(tablet mobile) {
+					width: 1.25ch;
+				}
+				@include for_breakpoint(desktop) {
+					width: 1.5ch;
+				}
 			}
 
 			&.input::after {
@@ -134,26 +141,39 @@
 			font-size: 1.5rem;
 			background: $english-lavender;
 			width: fit-content;
-			width: 10rem;
+			width: 8rem;
 			height: 4rem;
 			color: #fff;
 			position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 0.4rem;
 
-      img {
-        filter: invert(1);
-        height: 1.5rem;
-        width: 1.5rem;
+			img {
+				filter: invert(1);
+				height: 1.75rem;
+				width: 1.75rem;
+				margin-top: 0.2rem;
+			}
+
+			&:hover {
+				span {
+					animation: pointRight 1s infinite;
+				}
+			}
+
+      span {
+        @include for_breakpoint(mobile) {
+          margin-bottom: 0.25rem;
+        }
       }
 
 			&::before {
 				position: absolute;
 				content: '';
 				background: $old-lavender;
-				width: 10rem;
+				width: 8rem;
 				height: 4rem;
 				z-index: -1;
 				left: 0.25rem;
@@ -169,18 +189,18 @@
 				transition: 0.1s ease-in-out;
 			}
 
-      &:active {
-        background: $melon;
-        color: $old-lavender;
+			&:active {
+				background: $melon;
+				color: $old-lavender;
 
-        img {
-          filter: invert(0);
-        }
-      }
+				img {
+					filter: invert(0);
+				}
+			}
 
-      &:active::before {
-        filter: blur(2px)
-      }
+			&:active::before {
+				filter: blur(2px);
+			}
 		}
 	}
 }
