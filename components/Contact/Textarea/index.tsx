@@ -18,17 +18,35 @@ const Textarea = ({
 	const ref = useRef<HTMLTextAreaElement | null>(null);
 	const [top, setTop] = useState<number>(0);
 	const [left, setLeft] = useState<number>(0);
+	const [scrollHeight, setScrollHeight] = useState<undefined | number>();
+	const [height, setHeight] = useState<undefined | number>();
 
 	const handleSelect = useCallback(
 		(target: HTMLTextAreaElement) => {
 			if (!focused) return;
+			if (!scrollHeight) {
+				setScrollHeight(target.scrollHeight);
+			}
+			if (!height) {
+				setHeight(target.offsetHeight);
+			}
 			const targetSelection =
 				target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
 			const caret = getCaretCoordinates(target, targetSelection);
-			setTop(caret.top);
+
+			if (
+				scrollHeight &&
+				height &&
+				target.scrollHeight > scrollHeight &&
+				caret.top > scrollHeight
+			) {
+				setTop(caret.top - (target.scrollHeight - scrollHeight - (height - scrollHeight)));
+			} else {
+				setTop(caret.top);
+			}
 			setLeft(caret.left);
 		},
-		[focused]
+		[focused, height, scrollHeight]
 	);
 
 	return (
@@ -48,15 +66,7 @@ const Textarea = ({
 				onFocus={() => setFocused(true)}
 				onBlur={() => setFocused(false)}
 				onSelect={(e) => handleSelect(e.target as HTMLTextAreaElement)}
-				onChange={(e) => {
-					const charHeight = e.target.offsetHeight / 18;
-					setValue((prev) => {
-						return top >= e.target.offsetHeight - charHeight * 2 &&
-							prev.length < e.target.value.length
-							? prev
-							: e.target.value;
-					});
-				}}
+				onChange={(e) => setValue(e.target.value)}
 			/>
 		</Effect>
 	);

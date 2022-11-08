@@ -18,6 +18,8 @@ const Input = ({
 	const [focused, setFocused] = useState(false);
 	const [value, setValue] = useState('');
 	const [left, setLeft] = useState<number>(0);
+	const [scrollWidth, setScrollWidth] = useState<undefined | number>();
+	const [width, setWidth] = useState<undefined | number>();
 
 	const handleSelect = useCallback(
 		(target: HTMLInputElement) => {
@@ -29,15 +31,23 @@ const Input = ({
 				type === 'tel' ||
 				type === 'password'
 			) {
+				if (!scrollWidth) {
+					setScrollWidth(target.scrollWidth);
+				}
+				if (!width) {
+					setWidth(target.offsetWidth);
+				}
 				const targetSelection =
 					target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
 				const caret = getCaretCoordinates(target, targetSelection as number);
-				setLeft(() => {
-					return target.offsetWidth <= caret.left ? target.offsetWidth : caret.left;
-				});
+				if (scrollWidth && width && target.scrollWidth > scrollWidth) {
+					setLeft(caret.left - (target.scrollWidth - scrollWidth - (width - scrollWidth)));
+				} else {
+					setLeft(caret.left);
+				}
 			}
 		},
-		[focused, type]
+		[focused, type, scrollWidth, width]
 	);
 
 	return (
@@ -56,15 +66,7 @@ const Input = ({
 				onFocus={() => setFocused(true)}
 				onBlur={() => setFocused(false)}
 				onSelect={(e) => handleSelect(e.target as HTMLInputElement)}
-				onChange={(e) => {
-					const charWidth = e.target.offsetWidth / 37;
-					setValue((prev) => {
-						return left >= e.target.offsetWidth - charWidth * 2 &&
-							prev.length < e.target.value.length
-							? prev
-							: e.target.value;
-					});
-				}}
+				onChange={(e) => setValue(e.target.value)}
 			/>
 		</Effect>
 	);
