@@ -3,21 +3,54 @@ import Input from './Input';
 import Textarea from './Textarea';
 import Mail from '../../assets/images/mail.png';
 import Image from 'next/image';
-import { FormEvent, FormEventHandler, useCallback, useState } from 'react';
-import { isValidEmail } from '../../helpers/validators';
-import { ContactFormFocus, ContactFormId, ContactFormValues } from '../../types';
+import { FormEvent, FormEventHandler, useCallback, useMemo, useState } from 'react';
+import { composeValidators, isValidEmail, required } from '../../helpers/validators';
+import {
+	ContactFormFocus,
+	ContactFormId,
+	ContactFormValidators,
+	ContactFormValues,
+} from '../../types';
 
 const Contact = () => {
 	const [errors, setErrors] = useState(new ContactFormValues());
 	const [values, setValues] = useState(new ContactFormValues());
 	const [focus, setFocus] = useState(new ContactFormFocus());
+	const validators: ContactFormValidators = useMemo(
+		() => ({
+			email: [isValidEmail, required],
+		}),
+		[]
+	);
 
 	const onSubmit: FormEventHandler<HTMLFormElement> = useCallback(
 		(event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
 
-			const errorCheck = Object.values(errors).every((el: string) => !el);
-      if (!errorCheck) return;
+			let errorCheck = false;
+			for (const key in values) {
+				if (
+					composeValidators(
+						values[key as keyof ContactFormValues],
+						key,
+						validators[key as keyof ContactFormValidators]
+					)
+				) {
+					setErrors((prev) => ({
+						...prev,
+						[key]: composeValidators(
+							values[key as keyof ContactFormValues],
+							key,
+							validators[key as keyof ContactFormValidators]
+						),
+					}));
+					document.getElementById(key)?.focus();
+					errorCheck = true;
+				}
+			}
+
+			if (errorCheck) return;
+			console.log('made it');
 
 			// setResult('Sending....');
 			// const formData = new FormData(event.currentTarget);
@@ -35,7 +68,7 @@ const Contact = () => {
 			// 	setResult(res.message);
 			// }
 		},
-		[errors]
+		[validators, values]
 	);
 
 	return (
@@ -47,6 +80,7 @@ const Contact = () => {
 
 				<Input
 					contactStyles={styles}
+					validators={validators}
 					name='name'
 					type='text'
 					id={ContactFormId.Name}
@@ -60,11 +94,11 @@ const Contact = () => {
 				/>
 				<Input
 					contactStyles={styles}
-					validator={isValidEmail}
+					validators={validators}
 					name='email'
 					type='text'
 					id={ContactFormId.Email}
-					placeholder='-> Email'
+					placeholder='-> Email (required)'
 					errors={errors}
 					setErrors={setErrors}
 					values={values}
@@ -74,6 +108,7 @@ const Contact = () => {
 				/>
 				<Textarea
 					contactStyles={styles}
+					validators={validators}
 					name='message'
 					id={ContactFormId.Message}
 					placeholder='-> Pour your heart out!'

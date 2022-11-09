@@ -1,6 +1,7 @@
 import { CSSProperties, Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
 import getCaretCoordinates from 'textarea-caret';
-import { ContactFormFocus, ContactFormId, ContactFormValues } from '../../../types';
+import { composeValidators } from '../../../helpers/validators';
+import { ContactFormFocus, ContactFormId, ContactFormValidators, ContactFormValues } from '../../../types';
 import styles from './index.module.scss';
 
 type TextareaProps<
@@ -11,8 +12,9 @@ type TextareaProps<
 	contactStyles: { readonly [key: string]: string };
 	name: string;
 	id: U;
+	required?: boolean;
 	placeholder: string;
-	validator?: (value: string) => string | undefined;
+	validators?: ContactFormValidators;
 	errors: T;
 	setErrors: Dispatch<SetStateAction<T>>;
 	values: T;
@@ -29,8 +31,9 @@ const Textarea = <
 	contactStyles,
 	name,
 	id,
+	required,
 	placeholder,
-	validator,
+	validators,
 	errors,
 	setErrors,
 	values,
@@ -87,7 +90,7 @@ const Textarea = <
 					ref={ref}
 					id={id}
 					placeholder={focus[id] ? undefined : placeholder}
-					required
+					required={required}
 					value={values[id]}
 					onFocus={() => {
 						setFocus((prev) => ({ ...prev, [id]: true }));
@@ -95,7 +98,11 @@ const Textarea = <
 					}}
 					onBlur={() => {
 						setFocus((prev) => ({ ...prev, [id]: false }));
-						validator && setErrors((prev) => ({ ...prev, [id]: validator(values[id]) }));
+						validators &&
+							setErrors((prev) => ({
+								...prev,
+								[id]: composeValidators(values[id], name, validators[id]),
+							}));
 					}}
 					onSelect={(e) => handleSelect(e.target as HTMLTextAreaElement)}
 					onChange={(e) => setValues((prev) => ({ ...prev, [id]: e.target.value }))}

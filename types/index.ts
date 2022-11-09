@@ -25,3 +25,9 @@ export class ContactFormFocus {
 		this.message = false;
 	}
 }
+
+export interface ContactFormValidators {
+	name?: ((value: string, fieldName?: string) => string | undefined)[];
+	email?: ((value: string, fieldName?: string) => string | undefined)[];
+	message?: ((value: string, fieldName?: string) => string | undefined)[];
+}

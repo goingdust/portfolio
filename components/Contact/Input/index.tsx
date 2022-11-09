@@ -1,6 +1,12 @@
 import { CSSProperties, SetStateAction, useCallback, useState, Dispatch } from 'react';
 import getCaretCoordinates from 'textarea-caret';
-import { ContactFormFocus, ContactFormId, ContactFormValues } from '../../../types';
+import { composeValidators } from '../../../helpers/validators';
+import {
+	ContactFormFocus,
+	ContactFormId,
+	ContactFormValidators,
+	ContactFormValues,
+} from '../../../types';
 import styles from './index.module.scss';
 
 type InputProps<
@@ -11,9 +17,10 @@ type InputProps<
 	contactStyles: { readonly [key: string]: string };
 	name: string;
 	type: string;
+	required?: boolean;
 	id: U;
 	placeholder: string;
-	validator?: (value: string) => string | undefined;
+	validators?: ContactFormValidators;
 	errors: T;
 	setErrors: Dispatch<SetStateAction<T>>;
 	values: T;
@@ -26,9 +33,10 @@ const Input = <T extends ContactFormValues, U extends ContactFormId, V extends C
 	contactStyles,
 	name,
 	type,
+	required,
 	id,
 	placeholder,
-	validator,
+	validators,
 	errors,
 	setErrors,
 	values,
@@ -83,18 +91,27 @@ const Input = <T extends ContactFormValues, U extends ContactFormId, V extends C
 					name={name}
 					placeholder={focus[id] ? undefined : placeholder}
 					id={id}
-					required
+					required={required}
 					value={values[id]}
 					onFocus={() => {
 						setFocus((prev) => ({ ...prev, [id]: true }));
-						setErrors((prev) => ({ ...prev, [id]: '' }));
 					}}
 					onBlur={() => {
 						setFocus((prev) => ({ ...prev, [id]: false }));
-						validator && setErrors((prev) => ({ ...prev, [id]: validator(values[id]) }));
+						validators &&
+							setErrors((prev) => ({
+								...prev,
+								[id]: composeValidators(values[id], name, validators[id]),
+							}));
 					}}
 					onSelect={(e) => handleSelect(e.target as HTMLInputElement)}
-					onChange={(e) => setValues((prev) => ({ ...prev, [id]: e.target.value }))}
+					onChange={(e) => {
+						setValues((prev) => ({ ...prev, [id]: e.target.value }));
+						if (validators) {
+							const errors = composeValidators(e.target.value, name, validators[id]);
+							if (!errors) setErrors((prev) => ({ ...prev, [id]: '' }));
+						}
+					}}
 				/>
 			</div>
 			{errors[id] && <span>{errors[id]}</span>}

@@ -5,3 +5,21 @@ export const isValidEmail = (value: string) => {
 		return 'Please enter a valid email.';
 	}
 };
+
+export const required = (value: string, fieldName?: string) => {
+	if (value.length <= 0) {
+		return `Please enter ${fieldName ? 'your ' + fieldName : 'your information'}.`;
+	}
+};
+
+export const composeValidators = (
+	value: string,
+	fieldName: string,
+	validators?: ((value: string, fieldName?: string) => string | undefined)[]
+) => {
+	if (!validators) return;
+	const validatorWithError = validators.find((validator) => validator(value, fieldName));
+	if (validatorWithError) {
+		return validatorWithError(value, fieldName);
+	}
+};
