@@ -1,20 +1,43 @@
-import { CSSProperties, useCallback, useRef, useState } from 'react';
+import { CSSProperties, Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
 import getCaretCoordinates from 'textarea-caret';
+import { ContactFormFocus, ContactFormId, ContactFormValues } from '../../../types';
 import styles from './index.module.scss';
 
-const Textarea = ({
+type TextareaProps<
+	T extends ContactFormValues,
+	U extends ContactFormId,
+	V extends ContactFormFocus
+> = {
+	contactStyles: { readonly [key: string]: string };
+	name: string;
+	id: U;
+	placeholder: string;
+	validator?: (value: string) => string | undefined;
+	errors: T;
+	setErrors: Dispatch<SetStateAction<T>>;
+	values: T;
+	setValues: Dispatch<SetStateAction<T>>;
+	focus: V;
+	setFocus: Dispatch<SetStateAction<V>>;
+};
+
+const Textarea = <
+	T extends ContactFormValues,
+	U extends ContactFormId,
+	V extends ContactFormFocus
+>({
 	contactStyles,
 	name,
 	id,
 	placeholder,
-}: {
-	contactStyles: { readonly [key: string]: string };
-	name: string;
-	id: string;
-	placeholder: string;
-}) => {
-	const [focused, setFocused] = useState(false);
-	const [value, setValue] = useState('');
+	validator,
+	errors,
+	setErrors,
+	values,
+	setValues,
+	focus,
+	setFocus,
+}: TextareaProps<T, U, V>) => {
 	const ref = useRef<HTMLTextAreaElement | null>(null);
 	const [top, setTop] = useState<number>(0);
 	const [left, setLeft] = useState<number>(0);
@@ -23,7 +46,7 @@ const Textarea = ({
 
 	const handleSelect = useCallback(
 		(target: HTMLTextAreaElement) => {
-			if (!focused) return;
+			if (!focus[id]) return;
 			if (!scrollHeight) {
 				setScrollHeight(target.scrollHeight);
 			}
@@ -42,36 +65,45 @@ const Textarea = ({
 			}
 			setLeft(caret.left);
 		},
-		[focused, scrollHeight]
+		[focus, scrollHeight, id]
 	);
 
 	const style = {
 		'--caret-top': `${top}px`,
 		'--caret-left': `${left}px`,
-		'--caret-hidden': hide || !focused ? 'hidden' : 'visible',
+		'--caret-hidden': hide || !focus[id] ? 'hidden' : 'visible',
 	} as CSSProperties;
 
 	return (
-		<div
-			className={`${styles.caret} ${contactStyles.textarea} ${
-				focused ? contactStyles.inputFocus : contactStyles.inputBlur
-			}`}
-			style={style}
-		>
-			<textarea
-				name={name}
-				ref={ref}
-				id={id}
-				placeholder={focused ? undefined : placeholder}
-				required
-				value={value}
-				onFocus={() => setFocused(true)}
-				onBlur={() => setFocused(false)}
-				onSelect={(e) => handleSelect(e.target as HTMLTextAreaElement)}
-				onChange={(e) => setValue(e.target.value)}
-				onScroll={(e) => handleSelect(e.target as HTMLTextAreaElement)}
-			/>
-		</div>
+		<>
+			<div
+				className={`${styles.caret} ${contactStyles.textarea} ${
+					focus[id] ? contactStyles.inputFocus : contactStyles.inputBlur
+				}`}
+				style={style}
+			>
+				<textarea
+					name={name}
+					ref={ref}
+					id={id}
+					placeholder={focus[id] ? undefined : placeholder}
+					required
+					value={values[id]}
+					onFocus={() => {
+						setFocus((prev) => ({ ...prev, [id]: true }));
+						setErrors((prev) => ({ ...prev, [id]: '' }));
+					}}
+					onBlur={() => {
+						setFocus((prev) => ({ ...prev, [id]: false }));
+						validator && setErrors((prev) => ({ ...prev, [id]: validator(values[id]) }));
+					}}
+					onSelect={(e) => handleSelect(e.target as HTMLTextAreaElement)}
+					onChange={(e) => setValues((prev) => ({ ...prev, [id]: e.target.value }))}
+					onScroll={(e) => handleSelect(e.target as HTMLTextAreaElement)}
+				/>
+			</div>
+			{errors[id] && <span>{errors[id]}</span>}
+		</>
 	);
 };
 

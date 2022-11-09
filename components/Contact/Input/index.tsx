@@ -1,28 +1,47 @@
-import { CSSProperties, useCallback, useState } from 'react';
+import { CSSProperties, SetStateAction, useCallback, useState, Dispatch } from 'react';
 import getCaretCoordinates from 'textarea-caret';
+import { ContactFormFocus, ContactFormId, ContactFormValues } from '../../../types';
 import styles from './index.module.scss';
 
-const Input = ({
+type InputProps<
+	T extends ContactFormValues,
+	U extends ContactFormId,
+	V extends ContactFormFocus
+> = {
+	contactStyles: { readonly [key: string]: string };
+	name: string;
+	type: string;
+	id: U;
+	placeholder: string;
+	validator?: (value: string) => string | undefined;
+	errors: T;
+	setErrors: Dispatch<SetStateAction<T>>;
+	values: T;
+	setValues: Dispatch<SetStateAction<T>>;
+	focus: V;
+	setFocus: Dispatch<SetStateAction<V>>;
+};
+
+const Input = <T extends ContactFormValues, U extends ContactFormId, V extends ContactFormFocus>({
 	contactStyles,
 	name,
 	type,
 	id,
 	placeholder,
-}: {
-	contactStyles: { readonly [key: string]: string };
-	name: string;
-	type: string;
-	id: string;
-	placeholder: string;
-}) => {
-	const [focused, setFocused] = useState(false);
-	const [value, setValue] = useState('');
+	validator,
+	errors,
+	setErrors,
+	values,
+	setValues,
+	focus,
+	setFocus,
+}: InputProps<T, U, V>) => {
 	const [left, setLeft] = useState<number>(0);
 	const [scrollWidth, setScrollWidth] = useState<undefined | number>();
 
 	const handleSelect = useCallback(
 		(target: HTMLInputElement) => {
-			if (!focused) return;
+			if (!focus[id]) return;
 			if (
 				type === 'text' ||
 				type === 'search' ||
@@ -43,34 +62,43 @@ const Input = ({
 				}
 			}
 		},
-		[focused, type, scrollWidth]
+		[focus, type, scrollWidth, id]
 	);
 
 	const style = {
 		'--caret-left': `${left}px`,
-		'--focused': focused ? 'visible' : 'hidden',
+		'--focused': focus[id] ? 'visible' : 'hidden',
 	} as CSSProperties;
 
 	return (
-		<div
-			className={`${styles.caret} ${contactStyles.input} ${
-				focused ? contactStyles.inputFocus : contactStyles.inputBlur
-			}`}
-			style={style}
-		>
-			<input
-				type={type}
-				name={name}
-				placeholder={focused ? undefined : placeholder}
-				id={id}
-				required
-				value={value}
-				onFocus={() => setFocused(true)}
-				onBlur={() => setFocused(false)}
-				onSelect={(e) => handleSelect(e.target as HTMLInputElement)}
-				onChange={(e) => setValue(e.target.value)}
-			/>
-		</div>
+		<>
+			<div
+				className={`${styles.caret} ${contactStyles.input} ${
+					focus[id] ? contactStyles.inputFocus : contactStyles.inputBlur
+				}`}
+				style={style}
+			>
+				<input
+					type={type}
+					name={name}
+					placeholder={focus[id] ? undefined : placeholder}
+					id={id}
+					required
+					value={values[id]}
+					onFocus={() => {
+						setFocus((prev) => ({ ...prev, [id]: true }));
+						setErrors((prev) => ({ ...prev, [id]: '' }));
+					}}
+					onBlur={() => {
+						setFocus((prev) => ({ ...prev, [id]: false }));
+						validator && setErrors((prev) => ({ ...prev, [id]: validator(values[id]) }));
+					}}
+					onSelect={(e) => handleSelect(e.target as HTMLInputElement)}
+					onChange={(e) => setValues((prev) => ({ ...prev, [id]: e.target.value }))}
+				/>
+			</div>
+			{errors[id] && <span>{errors[id]}</span>}
+		</>
 	);
 };
 
