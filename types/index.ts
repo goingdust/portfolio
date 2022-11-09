@@ -1,3 +1,10 @@
+export enum REQUEST_STATUS {
+	FETCHING,
+	IDLE,
+	SUCCESS,
+	ERROR,
+}
+
 export class ContactFormValues {
 	name: string;
 	email: string;

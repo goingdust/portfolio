@@ -32,11 +32,11 @@
 			font-size: 3rem;
 		}
 
-		div {
+		.textarea {
 			position: relative;
 			caret-color: transparent;
 
-			&.textarea::before {
+			&::before {
 				content: '';
 				position: absolute;
 				background: $old-lavender;
@@ -52,11 +52,6 @@
 				top: 0.25rem;
 				z-index: -1;
 				height: 30rem;
-			}
-
-			&.input::before {
-				@extend .textarea;
-				height: 3rem;
 			}
 
 			&::after {
@@ -135,6 +130,14 @@
 			}
 		}
 
+    .input {
+      @extend .textarea;
+
+      &::before {
+				height: 3rem;
+			}
+    }
+
 		button {
 			margin-top: 1rem;
 			align-self: center;
@@ -163,11 +166,11 @@
 				}
 			}
 
-      span {
-        @include for_breakpoint(mobile) {
-          margin-bottom: 0.25rem;
-        }
-      }
+			span {
+				@include for_breakpoint(mobile) {
+					margin-bottom: 0.25rem;
+				}
+			}
 
 			&::before {
 				position: absolute;
@@ -202,6 +205,11 @@
 				filter: blur(2px);
 			}
 		}
+
+    .loader {
+      margin-top: 1rem;
+			align-self: center;
+    }
 	}
 }
 

@@ -10,12 +10,15 @@ import {
 	ContactFormId,
 	ContactFormValidators,
 	ContactFormValues,
+	REQUEST_STATUS,
 } from '../../types';
+import BlocksLoader from '../BlocksLoader';
 
 const Contact = () => {
 	const [errors, setErrors] = useState(new ContactFormValues());
 	const [values, setValues] = useState(new ContactFormValues());
 	const [focus, setFocus] = useState(new ContactFormFocus());
+	const [formStatus, setFormStatus] = useState(REQUEST_STATUS.IDLE);
 	const validators: ContactFormValidators = useMemo(
 		() => ({
 			email: [isValidEmail, required],
@@ -24,7 +27,7 @@ const Contact = () => {
 	);
 
 	const onSubmit: FormEventHandler<HTMLFormElement> = useCallback(
-		(event: FormEvent<HTMLFormElement>) => {
+		async (event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
 
 			let errorCheck = false;
@@ -50,7 +53,7 @@ const Contact = () => {
 			}
 
 			if (errorCheck) return;
-			console.log('made it');
+			setFormStatus(REQUEST_STATUS.FETCHING);
 
 			// setResult('Sending....');
 			// const formData = new FormData(event.currentTarget);
@@ -122,10 +125,13 @@ const Contact = () => {
 
 				<input type='hidden' name='redirect' value='https://web3forms.com/success' />
 
-				<button type='submit' aria-label='Send Message'>
-					<Image src={Mail} alt='mail' />
-					<span>{'->'}</span>
-				</button>
+				{formStatus === REQUEST_STATUS.IDLE && (
+					<button type='submit' aria-label='Send Message'>
+						<Image src={Mail} alt='mail' />
+						<span>{'->'}</span>
+					</button>
+				)}
+				{formStatus === REQUEST_STATUS.FETCHING && <BlocksLoader className={styles.loader} />}
 			</form>
 		</div>
 	);
