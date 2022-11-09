@@ -61,7 +61,7 @@ const Input = ({
 			<input
 				type={type}
 				name={name}
-				placeholder={placeholder}
+				placeholder={focused ? undefined : placeholder}
 				id={id}
 				required
 				value={value}

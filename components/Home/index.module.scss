@@ -6,13 +6,13 @@
 .homePage {
 	height: 100%;
 	width: 100%;
-  padding: 3rem 0;
+	padding: 3rem 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: 3rem;
-  overflow-x: hidden;
+	overflow-x: hidden;
 
 	.contentContainer {
 		display: flex;
@@ -23,7 +23,7 @@
 
 		header {
 			display: flex;
-      flex-direction: column;
+			flex-direction: column;
 			justify-content: center;
 			gap: 2rem;
 
@@ -33,7 +33,7 @@
 				font-size: 3rem;
 				font-weight: 400;
 				@include typed($greeting, $speeds1, $options1);
-        padding-right: 1ch;
+				padding-right: 1ch;
 
 				&.hide {
 					&::after {
@@ -41,9 +41,9 @@
 					}
 				}
 
-        &::after {
-          margin-right: -1ch;
-        }
+				&::after {
+					margin-right: -1ch;
+				}
 			}
 
 			h2 {
@@ -54,25 +54,31 @@
 				letter-spacing: 0.5rem;
 				visibility: hidden;
 				@include typed($job-title, $speeds2, $options2);
-        padding-right: 1ch;
+				padding-right: 1ch;
 
 				&.show {
 					visibility: visible;
 				}
 
-        &::after {
-          margin-right: -1ch;
-        }
+				&::after {
+					margin-right: -1ch;
+				}
 			}
 		}
 
 		img {
 			width: 12rem;
 			height: 12rem;
+			transform: rotate(var(--img-rotate)) scaleY(var(--img-flip));
+			-moz-transform: rotate(var(--img-rotate)) scaleY(var(--img-flip));
+			-webkit-transform: rotate(var(--img-rotate)) scaleY(var(--img-flip));
+			-o-transform: rotate(var(--img-rotate)) scaleY(var(--img-flip));
+			-ms-transform: rotate(var(--img-rotate)) scaleY(var(--img-flip));
+      transition: transform var(--img-transition) ease-in-out;
 		}
 	}
 
-  // TODO Make entrance animation for contact button
+	// TODO Make entrance animation for contact button
 
 	.flatButton {
 		color: $english-lavender;

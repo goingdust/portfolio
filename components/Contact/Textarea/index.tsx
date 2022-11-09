@@ -31,7 +31,7 @@ const Textarea = ({
 				target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
 			const caret = getCaretCoordinates(target, targetSelection);
 
-			if (scrollHeight! + target.scrollTop < caret.top || caret.top < target.scrollTop) {
+			if (scrollHeight! + target.scrollTop < caret.top + 20 || caret.top < target.scrollTop) {
 				setHide(true);
 			} else if (target.scrollHeight > scrollHeight!) {
 				setHide(false);
@@ -62,7 +62,7 @@ const Textarea = ({
 				name={name}
 				ref={ref}
 				id={id}
-				placeholder={placeholder}
+				placeholder={focused ? undefined : placeholder}
 				required
 				value={value}
 				onFocus={() => setFocused(true)}
