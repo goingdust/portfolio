@@ -7,7 +7,7 @@ $loaderw: calc($squarew * 3 + $squaremargin * 2);
 $loaderh: calc($squareh * 3 + $squaremargin * 2);
 $delayenter: 0.1s;
 $topenter: -10px;
-$speed: 4s;
+$speed: 2s;
 
 @mixin transition($value) {
 	-webkit-transition: $value;
@@ -95,7 +95,7 @@ $speed: 4s;
     left: -$squaremargin / 1.5;
 		position: absolute;
 		-webkit-animation: enter $speed infinite;
-		animation: enter $speed 0.2s infinite;
+		animation: enter $speed infinite;
 	}
 }
 .enter {

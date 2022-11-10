@@ -4,10 +4,9 @@ import Textarea from './Textarea';
 import Mail from '../../assets/images/mail.png';
 import Image from 'next/image';
 import {
-	Dispatch,
+	CSSProperties,
 	FormEvent,
 	FormEventHandler,
-	SetStateAction,
 	useCallback,
 	useMemo,
 	useState,
@@ -27,6 +26,7 @@ const Contact = () => {
 	const [values, setValues] = useState(new ContactFormValues());
 	const [focus, setFocus] = useState(new ContactFormFocus());
 	const [formStatus, setFormStatus] = useState(REQUEST_STATUS.IDLE);
+	const [result, setResult] = useState('');
 	const validators: ContactFormValidators = useMemo(
 		() => ({
 			email: [isValidEmail, required],
@@ -59,34 +59,61 @@ const Contact = () => {
 					errorCheck = true;
 				}
 			}
+      if (errorCheck) return;
 
-			if (errorCheck) return;
 			setFormStatus(REQUEST_STATUS.FETCHING);
+			const formData = new FormData(event.currentTarget);
 
-			// setResult('Sending....');
-			// const formData = new FormData(event.currentTarget);
+			try {
+				const res = await fetch('https://api.web3forms.com/submit', {
+					method: 'POST',
+					body: formData,
+				}).then((res) => res.json());
 
-			// const res = await fetch('https://api.web3forms.com/submit', {
-			// 	method: 'POST',
-			// 	body: formData,
-			// }).then((res) => res.json());
-
-			// if (res.success) {
-			// 	console.log('Success', res);
-			// 	setResult(res.message);
-			// } else {
-			// 	console.log('Error', res);
-			// 	setResult(res.message);
-			// }
+				if (res.success) {
+					setFormStatus(REQUEST_STATUS.SUCCESS);
+					console.log('Success', res);
+					setResult(res.message);
+					setTimeout(() => {
+						setFormStatus(REQUEST_STATUS.IDLE);
+					}, 5000);
+				} else {
+					setFormStatus(REQUEST_STATUS.ERROR);
+					console.log('Error', res);
+					setResult(res.message);
+					setTimeout(() => {
+						setFormStatus(REQUEST_STATUS.IDLE);
+					}, 5000);
+				}
+			} catch (err) {
+				setFormStatus(REQUEST_STATUS.ERROR);
+				console.log('Error:', err);
+				setResult('Uh oh, something went wrong.');
+				setTimeout(() => {
+					setFormStatus(REQUEST_STATUS.IDLE);
+				}, 5000);
+			}
 		},
 		[validators, values]
 	);
+
+	const style = useMemo(
+		() => ({
+			'--flex-direction': formStatus === REQUEST_STATUS.ERROR ? 'row' : 'column',
+			'--msg-flex-gap': formStatus === REQUEST_STATUS.ERROR ? '1rem' : '0.25rem',
+		}),
+		[formStatus]
+	) as CSSProperties;
 
 	return (
 		<div className={styles.contactPage}>
 			<form onSubmit={onSubmit}>
 				<h1>Drop me a line.</h1>
-				<input type='hidden' name='access_key' value={process.env.WEB3_FORMS_ACCESS_KEY} />
+				<input
+					type='hidden'
+					name='access_key'
+					value={process.env.NEXT_PUBLIC_WEB3_FORMS_ACCESS_KEY}
+				/>
 				<input type='checkbox' name='botcheck' className='hidden' style={{ display: 'none' }} />
 
 				<Input
@@ -133,13 +160,30 @@ const Contact = () => {
 
 				<input type='hidden' name='redirect' value='https://web3forms.com/success' />
 
-				{formStatus === REQUEST_STATUS.IDLE && (
-					<button type='submit' aria-label='Send Message'>
-						<Image src={Mail} alt='mail' />
-						<span>{'->'}</span>
-					</button>
-				)}
-				{formStatus === REQUEST_STATUS.FETCHING && <BlocksLoader className={styles.loader} />}
+				<div className={styles.buttonContainer} style={style}>
+					{formStatus === REQUEST_STATUS.IDLE && (
+						<button type='submit' aria-label='Send Message'>
+							<Image src={Mail} alt='mail' />
+							<span>{'->'}</span>
+						</button>
+					)}
+					{formStatus === REQUEST_STATUS.FETCHING && (
+						<>
+							<span className={styles.sending}>sending</span>
+							<BlocksLoader className={styles.loader} />
+							<span className={styles.sending}>message</span>
+						</>
+					)}
+					{formStatus === REQUEST_STATUS.ERROR && (
+						<>
+							<div className={styles.error}>!</div>
+							<span className={styles.errorMsg}>
+								{result ? result : 'Uh oh, something went wrong.'}
+							</span>
+						</>
+					)}
+					{formStatus === REQUEST_STATUS.SUCCESS && <span>{result ? result : 'SENT!'}</span>}
+				</div>
 			</form>
 		</div>
 	);

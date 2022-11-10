@@ -6,6 +6,7 @@ import {
 	useCallback,
 	useContext,
 	useEffect,
+	useMemo,
 	useRef,
 	useState,
 } from 'react';
@@ -102,11 +103,14 @@ const Textarea = <
 		}
 	}, [setHideNav, isMobile, hideNav, router.events]);
 
-	const style = {
-		'--caret-top': `${top}px`,
-		'--caret-left': `${left}px`,
-		'--caret-hidden': hide || !focus[id] ? 'hidden' : 'visible',
-	} as CSSProperties;
+	const style = useMemo(
+		() => ({
+			'--caret-top': `${top}px`,
+			'--caret-left': `${left}px`,
+			'--caret-hidden': hide || !focus[id] ? 'hidden' : 'visible',
+		}),
+		[focus, hide, id, top, left]
+	) as CSSProperties;
 
 	return (
 		<>

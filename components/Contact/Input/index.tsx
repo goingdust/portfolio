@@ -1,4 +1,4 @@
-import { CSSProperties, SetStateAction, useCallback, useState, Dispatch } from 'react';
+import { CSSProperties, SetStateAction, useCallback, useState, Dispatch, useMemo } from 'react';
 import getCaretCoordinates from 'textarea-caret';
 import { composeValidators } from '../../../helpers/validators';
 import {
@@ -73,10 +73,13 @@ const Input = <T extends ContactFormValues, U extends ContactFormId, V extends C
 		[focus, type, scrollWidth, id]
 	);
 
-	const style = {
-		'--caret-left': `${left}px`,
-		'--focused': focus[id] ? 'visible' : 'hidden',
-	} as CSSProperties;
+	const style = useMemo(
+		() => ({
+			'--caret-left': `${left}px`,
+			'--focused': focus[id] ? 'visible' : 'hidden',
+		}),
+		[left, focus, id]
+	) as CSSProperties;
 
 	return (
 		<>

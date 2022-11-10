@@ -138,77 +138,107 @@
 			}
 		}
 
-		button {
+		.buttonContainer {
 			margin-top: 1rem;
 			align-self: center;
-			font-size: 1.5rem;
-			background: $english-lavender;
-			width: fit-content;
-			width: 8rem;
-			height: 4rem;
-			color: #fff;
-			position: relative;
 			display: flex;
-			justify-content: center;
+			flex-direction: var(--flex-direction);
 			align-items: center;
-			gap: 0.4rem;
+			justify-content: center;
+			gap: var(--msg-flex-gap);
+			height: 8rem;
 
-			img {
-				filter: invert(1);
-				height: 1.75rem;
-				width: 1.75rem;
-				margin-top: 0.2rem;
+			.sending {
+				font-size: 1.25rem;
 			}
 
-			&:hover {
-				span {
-					animation: pointRight 1s infinite;
-				}
+			.error {
+				width: 3rem;
+				height: 3rem;
+				background-image: linear-gradient(to bottom right, transparent 50%, $pastel-pink 0),
+					linear-gradient(to top right, $pastel-pink 50%, transparent 0);
+				background-size: 50% 100%;
+				background-repeat: no-repeat;
+				background-position: left, right;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        padding-top: 0.5rem;
 			}
 
-			span {
-				@include for_breakpoint(mobile) {
-					margin-bottom: 0.25rem;
-				}
+			.errorMsg {
+        font-size: 1.25rem;
 			}
 
-			&::before {
-				position: absolute;
-				content: '';
-				background: $old-lavender;
+			button {
+				font-size: 1.5rem;
+				background: $english-lavender;
+				width: fit-content;
 				width: 8rem;
 				height: 4rem;
-				z-index: -1;
-				left: 0.25rem;
-			}
-
-			&:hover::before {
-				top: 0.5rem;
-				transition: 0.1s ease-in-out;
-			}
-
-			&:not(:hover)::before {
-				top: 0.25rem;
-				transition: 0.1s ease-in-out;
-			}
-
-			&:active {
-				background: $melon;
-				color: $old-lavender;
+				color: #fff;
+				position: relative;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 0.4rem;
 
 				img {
-					filter: invert(0);
+					filter: invert(1);
+					height: 1.75rem;
+					width: 1.75rem;
+					margin-top: 0.2rem;
+				}
+
+				&:hover {
+					span {
+						animation: pointRight 1s infinite;
+					}
+				}
+
+				span {
+					@include for_breakpoint(mobile) {
+						margin-bottom: 0.25rem;
+					}
+				}
+
+				&::before {
+					position: absolute;
+					content: '';
+					background: $old-lavender;
+					width: 8rem;
+					height: 4rem;
+					z-index: -1;
+					left: 0.25rem;
+				}
+
+				&:hover::before {
+					top: 0.5rem;
+					transition: 0.1s ease-in-out;
+				}
+
+				&:not(:hover)::before {
+					top: 0.25rem;
+					transition: 0.1s ease-in-out;
+				}
+
+				&:active {
+					background: $melon;
+					color: $old-lavender;
+
+					img {
+						filter: invert(0);
+					}
+				}
+
+				&:active::before {
+					filter: blur(2px);
 				}
 			}
 
-			&:active::before {
-				filter: blur(2px);
+			.loader {
 			}
-		}
-
-		.loader {
-			margin-top: 1rem;
-			align-self: center;
 		}
 	}
 }
