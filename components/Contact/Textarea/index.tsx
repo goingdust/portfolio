@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
 	CSSProperties,
 	Dispatch,
@@ -63,7 +64,8 @@ const Textarea = <
 	const [scrollHeight, setScrollHeight] = useState<undefined | number>();
 	const [hide, setHide] = useState(false);
 	const { isMobile } = useWindowSize();
-	const { setHideNav } = useContext(HideNavContext);
+	const { hideNav, setHideNav } = useContext(HideNavContext);
+	const router = useRouter();
 
 	const handleSelect = useCallback(
 		(target: HTMLTextAreaElement) => {
@@ -89,15 +91,16 @@ const Textarea = <
 		[focus, scrollHeight, id]
 	);
 
+	// for unhiding the nav buttons when navigating away from the page
 	useEffect(() => {
 		if (isMobile) {
-			document.getElementById('page-container')?.addEventListener('touchmove', () => {
-				if (focus[id]) {
+			router.events.on('routeChangeStart', () => {
+				if (hideNav) {
 					setHideNav(false);
 				}
 			});
 		}
-	}, [setHideNav, focus, id, isMobile]);
+	}, [setHideNav, isMobile, hideNav, router.events]);
 
 	const style = {
 		'--caret-top': `${top}px`,
@@ -122,6 +125,7 @@ const Textarea = <
 					value={values[id]}
 					onFocus={() => {
 						if (isMobile) {
+							// for hiding the nav buttons because of mobile keyboard taking up screen
 							setHideNav(true);
 						}
 						setFocus((prev) => ({ ...prev, [id]: true }));
@@ -129,6 +133,7 @@ const Textarea = <
 					}}
 					onBlur={() => {
 						if (isMobile) {
+							// unhide the nav buttons
 							setHideNav(false);
 						}
 						setFocus((prev) => ({ ...prev, [id]: false }));
