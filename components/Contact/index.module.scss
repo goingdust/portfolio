@@ -153,8 +153,8 @@
 			}
 
 			.error {
-				width: 3rem;
-				height: 3rem;
+				width: 3.5rem;
+				height: 3.5rem;
 				background-image: linear-gradient(to bottom right, transparent 50%, $pastel-pink 0),
 					linear-gradient(to top right, $pastel-pink 50%, transparent 0);
 				background-size: 50% 100%;
@@ -163,7 +163,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 1.5rem;
+        font-size: 2rem;
         padding-top: 0.5rem;
 			}
 
