@@ -2,6 +2,8 @@
 @import '@styles/mixins';
 @import '@styles/keyframes';
 
+$size-times: var(--button-container-size-times);
+
 .contactPage {
 	height: 100%;
 	width: 100%;
@@ -11,11 +13,14 @@
 	align-items: center;
 	gap: 3rem;
 
-	form {
-		display: flex;
+	.inputsContainer {
+		display: var(--mobile-form);
 		flex-direction: column;
 		justify-content: center;
 		gap: 1rem;
+	}
+
+	form {
 		@include for_breakpoint(desktop) {
 			width: 50rem;
 		}
@@ -88,9 +93,6 @@
 				outline: none;
 				color: $old-lavender;
 				padding: 0 1rem;
-				text-overflow: ellipsis;
-        display: flex;
-        align-items: center;
 
 				&::placeholder {
 					color: $old-lavender-faded;
@@ -148,29 +150,100 @@
 			align-items: center;
 			justify-content: center;
 			gap: var(--msg-flex-gap);
-			height: 8rem;
+			height: calc(8rem * $size-times);
 
 			.sending {
-				font-size: 1.25rem;
+				font-size: calc(1.25rem * $size-times);
 			}
 
 			.error {
-				width: 3.5rem;
-				height: 3.5rem;
+				width: calc(3.5rem * $size-times);
+				height: calc(3.5rem * $size-times);
 				background-image: linear-gradient(to bottom right, transparent 50%, $pastel-pink 0),
 					linear-gradient(to top right, $pastel-pink 50%, transparent 0);
 				background-size: 50% 100%;
 				background-repeat: no-repeat;
 				background-position: left, right;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 2rem;
-        padding-top: 0.5rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: calc(2rem * $size-times);
+				padding-top: calc(0.5rem * $size-times);
 			}
 
 			.errorMsg {
-        font-size: 1.25rem;
+				font-size: calc(1.25rem * $size-times);
+			}
+
+			.msgSent {
+				position: relative;
+				width: calc(5rem * $size-times);
+				height: calc(2.5rem * $size-times);
+				background: $apricot;
+				border-top: $old-lavender calc(0.2rem * $size-times) solid;
+				z-index: 3;
+
+				&::after {
+					content: 'Sent!';
+					font-size: 0rem;
+					color: $old-lavender;
+					position: absolute;
+					top: calc(-3rem * $size-times);
+					transform: translate(-50%);
+					left: 50%;
+					animation: grow 1s 1s forwards;
+				}
+			}
+
+			.sentBlock {
+				color: $apricot;
+				position: relative;
+				width: calc(2rem * $size-times);
+				height: calc(2rem * $size-times);
+				margin-left: calc(-0.1rem * $size-times);
+				margin-bottom: calc(0.5rem * $size-times);
+				background: $old-lavender;
+				animation: dropIn 1s forwards;
+
+				&::before {
+					content: '⬇';
+					color: #fff;
+					font-size: calc(1rem * $size-times);
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					position: absolute;
+					width: calc(2rem * $size-times);
+					height: calc(2rem * $size-times);
+					top: calc(-0.2rem * $size-times);
+					left: calc(-0.2rem * $size-times);
+					margin-bottom: calc(0.5rem * $size-times);
+					background: $english-lavender;
+				}
+			}
+
+			@keyframes dropIn {
+				10% {
+					transform: translateY(calc(0.1rem * $size-times));
+				}
+				20% {
+					transform: translateY(calc(-0.1rem * $size-times));
+				}
+				100% {
+					transform: translateY(calc(3rem * $size-times));
+				}
+			}
+
+			@keyframes grow {
+				60% {
+					font-size: calc(1.55rem * $size-times);
+				}
+				80% {
+					font-size: calc(1.45rem * $size-times);
+				}
+				100% {
+					font-size: calc(1.5rem * $size-times);
+				}
 			}
 
 			button {
@@ -237,9 +310,6 @@
 				&:active::before {
 					filter: blur(2px);
 				}
-			}
-
-			.loader {
 			}
 		}
 	}

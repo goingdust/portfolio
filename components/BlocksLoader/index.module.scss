@@ -1,8 +1,9 @@
 @import '@styles/colors';
 
-$squarew: 1rem;
-$squareh: 1rem;
-$squaremargin: 0.25rem;
+$size-times: var(--button-container-size-times);
+$squarew: calc(1rem * $size-times);
+$squareh: calc(1rem * $size-times);
+$squaremargin: calc(0.25rem * $size-times);
 $loaderw: calc($squarew * 3 + $squaremargin * 2);
 $loaderh: calc($squareh * 3 + $squaremargin * 2);
 $delayenter: 0.1s;
@@ -91,8 +92,8 @@ $speed: 2s;
 		@extend .square;
 		content: '';
 		background: $english-lavender;
-    margin-top: -$squaremargin / 1.5;
-    left: -$squaremargin / 1.5;
+		margin-top: calc(($squaremargin - ($squaremargin * 2)) / 1.5);
+		left: calc(($squaremargin - ($squaremargin * 2)) / 1.5);
 		position: absolute;
 		-webkit-animation: enter $speed infinite;
 		animation: enter $speed infinite;

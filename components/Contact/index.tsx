@@ -14,6 +14,7 @@ import {
 } from '../../types';
 import BlocksLoader from '../BlocksLoader';
 import useWeb3forms from '@web3forms/react';
+import useWindowSize from '../../hooks/useWindowSize';
 
 const Contact = () => {
 	const [errors, setErrors] = useState(new ContactFormValues());
@@ -27,6 +28,7 @@ const Contact = () => {
 		}),
 		[]
 	);
+	const { isMobile } = useWindowSize();
 
 	const { submit } = useWeb3forms({
 		access_key: process.env.NEXT_PUBLIC_WEB3_FORMS_ACCESS_KEY!,
@@ -79,9 +81,7 @@ const Contact = () => {
 			}
 			if (errorCheck) return;
 
-			setFormStatus(REQUEST_STATUS.SUCCESS);
-
-			// submit(values);
+			submit(values);
 		},
 		[validators, values, submit]
 	);
@@ -90,61 +90,65 @@ const Contact = () => {
 		() => ({
 			'--flex-direction': formStatus === REQUEST_STATUS.ERROR ? 'row' : 'column',
 			'--msg-flex-gap': formStatus === REQUEST_STATUS.ERROR ? '1rem' : '0.25rem',
+			'--mobile-form': formStatus !== REQUEST_STATUS.IDLE ? (isMobile ? 'none' : 'flex') : 'flex',
+			'--button-container-size-times': isMobile && formStatus !== REQUEST_STATUS.IDLE ? 1.5 : 1,
 		}),
-		[formStatus]
+		[formStatus, isMobile]
 	) as CSSProperties;
 
 	return (
-		<div className={styles.contactPage}>
+		<div className={styles.contactPage} style={style}>
 			<form onSubmit={onSubmit}>
-				<h1>Drop me a line.</h1>
-				<input type='checkbox' name='botcheck' className='hidden' style={{ display: 'none' }} />
+				<div className={styles.inputsContainer}>
+					<h1>Drop me a line.</h1>
+					<input type='checkbox' name='botcheck' className='hidden' style={{ display: 'none' }} />
 
-				<Input
-					contactStyles={styles}
-					validators={validators}
-					name='name'
-					type='text'
-					id={ContactFormId.Name}
-					placeholder='-> Your name'
-					errors={errors}
-					setErrors={setErrors}
-					values={values}
-					setValues={setValues}
-					focus={focus}
-					setFocus={setFocus}
-				/>
-				<Input
-					contactStyles={styles}
-					validators={validators}
-					name='email'
-					type='text'
-					id={ContactFormId.Email}
-					placeholder='-> Email (required)'
-					errors={errors}
-					setErrors={setErrors}
-					values={values}
-					setValues={setValues}
-					focus={focus}
-					setFocus={setFocus}
-				/>
-				<Textarea
-					contactStyles={styles}
-					validators={validators}
-					name='message'
-					id={ContactFormId.Message}
-					placeholder='-> Pour your heart out!'
-					errors={errors}
-					setErrors={setErrors}
-					values={values}
-					setValues={setValues}
-					focus={focus}
-					setFocus={setFocus}
-				/>
+					<Input
+						contactStyles={styles}
+						validators={validators}
+						name='name'
+						type='text'
+						id={ContactFormId.Name}
+						placeholder='-> Your name'
+						errors={errors}
+						setErrors={setErrors}
+						values={values}
+						setValues={setValues}
+						focus={focus}
+						setFocus={setFocus}
+					/>
+					<Input
+						contactStyles={styles}
+						validators={validators}
+						name='email'
+						type='text'
+						id={ContactFormId.Email}
+						placeholder='-> Email (required)'
+						errors={errors}
+						setErrors={setErrors}
+						values={values}
+						setValues={setValues}
+						focus={focus}
+						setFocus={setFocus}
+					/>
+					<Textarea
+						contactStyles={styles}
+						validators={validators}
+						name='message'
+						id={ContactFormId.Message}
+						placeholder='-> Pour your heart out!'
+						errors={errors}
+						setErrors={setErrors}
+						values={values}
+						setValues={setValues}
+						focus={focus}
+						setFocus={setFocus}
+					/>
+				</div>
 
 				<input type='hidden' name='redirect' value='https://web3forms.com/success' />
 
-				<div className={styles.buttonContainer} style={style}>
+				<div className={styles.buttonContainer}>
 					{formStatus === REQUEST_STATUS.IDLE && (
 						<button type='submit' aria-label='Send Message'>
 							<Image src={Mail} alt='mail' />
@@ -166,7 +170,12 @@ const Contact = () => {
 							</span>
 						</>
 					)}
-					{formStatus === REQUEST_STATUS.SUCCESS && <span>{result ? result : 'SENT!'}</span>}
+					{formStatus === REQUEST_STATUS.SUCCESS && (
+						<>
+							<div className={styles.sentBlock} />
+							<div className={styles.msgSent} />
+						</>
+					)}
 				</div>
 			</form>
 		</div>
