@@ -1,10 +1,12 @@
 import styles from './index.module.scss';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { GitHub, LinkedIn, Menu, MenuOpen } from '@mui/icons-material';
 import NavLinkItem from './NavLinkItem';
+import { HideNavContext } from '../../contexts/HideNavProvider';
 
 const Nav = () => {
 	const [navVisible, setNavVisible] = useState<boolean>();
+	const { hideNav } = useContext(HideNavContext);
 
 	const headerNavLinkItemClickHandler = useCallback(() => {
 		setNavVisible((prev) => (prev === undefined ? true : !prev));
@@ -16,7 +18,7 @@ const Nav = () => {
 
 	return (
 		<nav className={styles.navBar}>
-			<header>
+			<header className={hideNav ? 'bounce-out-up' : 'bounce-in-down'}>
 				<button
 					className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
 					onClick={headerNavLinkItemClickHandler}

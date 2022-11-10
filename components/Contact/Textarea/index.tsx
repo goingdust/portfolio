@@ -1,7 +1,23 @@
-import { CSSProperties, Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
+import {
+	CSSProperties,
+	Dispatch,
+	SetStateAction,
+	useCallback,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import getCaretCoordinates from 'textarea-caret';
+import { HideNavContext } from '../../../contexts/HideNavProvider';
 import { composeValidators } from '../../../helpers/validators';
-import { ContactFormFocus, ContactFormId, ContactFormValidators, ContactFormValues } from '../../../types';
+import useWindowSize from '../../../hooks/useWindowSize';
+import {
+	ContactFormFocus,
+	ContactFormId,
+	ContactFormValidators,
+	ContactFormValues,
+} from '../../../types';
 import styles from './index.module.scss';
 
 type TextareaProps<
@@ -46,6 +62,8 @@ const Textarea = <
 	const [left, setLeft] = useState<number>(0);
 	const [scrollHeight, setScrollHeight] = useState<undefined | number>();
 	const [hide, setHide] = useState(false);
+	const { isMobile } = useWindowSize();
+	const { setHideNav } = useContext(HideNavContext);
 
 	const handleSelect = useCallback(
 		(target: HTMLTextAreaElement) => {
@@ -71,6 +89,16 @@ const Textarea = <
 		[focus, scrollHeight, id]
 	);
 
+	useEffect(() => {
+		if (isMobile) {
+			document.getElementById('page-container')?.addEventListener('touchmove', () => {
+				if (focus[id]) {
+					setHideNav(false);
+				}
+			});
+		}
+	}, [setHideNav, focus, id, isMobile]);
+
 	const style = {
 		'--caret-top': `${top}px`,
 		'--caret-left': `${left}px`,
@@ -93,10 +121,16 @@ const Textarea = <
 					required={required}
 					value={values[id]}
 					onFocus={() => {
+						if (isMobile) {
+							setHideNav(true);
+						}
 						setFocus((prev) => ({ ...prev, [id]: true }));
 						setErrors((prev) => ({ ...prev, [id]: '' }));
 					}}
 					onBlur={() => {
+						if (isMobile) {
+							setHideNav(false);
+						}
 						setFocus((prev) => ({ ...prev, [id]: false }));
 						validators &&
 							setErrors((prev) => ({
@@ -109,7 +143,7 @@ const Textarea = <
 					onScroll={(e) => handleSelect(e.target as HTMLTextAreaElement)}
 				/>
 			</div>
-			{errors[id] && <span>{errors[id]}</span>}
+			{errors[id] && <span className={styles.error}>{errors[id]}</span>}
 		</>
 	);
 };

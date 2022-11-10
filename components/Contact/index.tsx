@@ -3,7 +3,15 @@ import Input from './Input';
 import Textarea from './Textarea';
 import Mail from '../../assets/images/mail.png';
 import Image from 'next/image';
-import { FormEvent, FormEventHandler, useCallback, useMemo, useState } from 'react';
+import {
+	Dispatch,
+	FormEvent,
+	FormEventHandler,
+	SetStateAction,
+	useCallback,
+	useMemo,
+	useState,
+} from 'react';
 import { composeValidators, isValidEmail, required } from '../../helpers/validators';
 import {
 	ContactFormFocus,

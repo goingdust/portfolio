@@ -114,7 +114,7 @@ const Input = <T extends ContactFormValues, U extends ContactFormId, V extends C
 					}}
 				/>
 			</div>
-			{errors[id] && <span>{errors[id]}</span>}
+			{errors[id] && <span className={styles.error}>{errors[id]}</span>}
 		</>
 	);
 };

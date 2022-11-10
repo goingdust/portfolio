@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Loader from '../components/Loader';
+import { HideNavProvider } from '../contexts/HideNavProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [isLoaderVisible, setIsLoaderVisible] = useState(true);
@@ -28,9 +29,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 			{isLoaderVisible ? (
 				<Loader />
 			) : (
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
+				<HideNavProvider>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</HideNavProvider>
 			)}
 		</>
 	);
