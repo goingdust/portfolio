@@ -130,13 +130,13 @@
 			}
 		}
 
-    .input {
-      @extend .textarea;
+		.input {
+			@extend .textarea;
 
-      &::before {
+			&::before {
 				height: 3rem;
 			}
-    }
+		}
 
 		button {
 			margin-top: 1rem;
@@ -206,19 +206,34 @@
 			}
 		}
 
-    .loader {
-      margin-top: 1rem;
+		.loader {
+			margin-top: 1rem;
 			align-self: center;
-    }
+		}
 	}
 }
 
-.inputFocus::before {
-	left: 0.5rem;
-	transition: 0.1s ease-in-out;
+.inputFocus {
+	textarea,
+	input {
+		border: 0.15rem solid $pastel-pink !important;
+		transition: 0.1s ease-in-out;
+	}
+
+	&::before {
+		left: 0.5rem;
+		transition: 0.1s ease-in-out;
+	}
 }
 
-.inputBlur::before {
-	left: 0.25rem;
-	transition: 0.1s ease-in-out;
+.inputBlur {
+	textarea,
+	input {
+		border: 0.15rem solid $english-lavender !important;
+		transition: 0.1s ease-in-out;
+	}
+	&::before {
+		left: 0.25rem;
+		transition: 0.1s ease-in-out;
+	}
 }
