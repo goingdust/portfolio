@@ -76,8 +76,14 @@ const Home = () => {
 		<div className={styles.homePage}>
 			<div className={styles.contentContainer}>
 				<header>
-					<h1 className={`${h1Finished ? styles.hide : ''}`} />
-					<h2 className={`${h1Finished ? styles.show : ''}`} />
+					<div className={styles.headingContainer}>
+						<h1 className={`${styles.homeTitle} ${h1Finished ? styles.hide : ''}`} />
+						<h1 className={styles.homeTitleHidden}>{"Hi, I'm Dusty Luck."}</h1>
+					</div>
+					<div className={styles.headingContainer}>
+						<h2 className={`${styles.homeSubtitle} ${h1Finished ? styles.show : ''}`} />
+						<h2 className={styles.homeSubtitleHidden}>Front End Developer</h2>
+					</div>
 				</header>
 				<Image
 					src={Avatar}
