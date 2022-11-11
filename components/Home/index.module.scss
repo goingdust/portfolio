@@ -74,27 +74,52 @@
 			-webkit-transform: rotate(var(--img-rotate)) scaleY(var(--img-flip));
 			-o-transform: rotate(var(--img-rotate)) scaleY(var(--img-flip));
 			-ms-transform: rotate(var(--img-rotate)) scaleY(var(--img-flip));
-      transition: transform var(--img-transition) ease-in-out;
+			transition: transform var(--img-transition) ease-in-out;
 		}
 	}
 
 	// TODO Make entrance animation for contact button
 
 	.flatButton {
-		color: $english-lavender;
-		font-size: 1.25rem;
-		font-weight: 400;
-		letter-spacing: 0.25rem;
-		text-decoration: none;
-		padding: 1rem 1.25rem 1rem 1.5rem;
-		width: fit-content;
-		border: 0.15rem solid $english-lavender;
-		white-space: nowrap;
+		width: 12rem;
+		height: 4rem;
+		background: $old-lavender;
 		align-self: center;
+		position: relative;
 
 		&:hover {
-			background: $english-lavender;
-			color: $apricot;
+			&::before {
+				background: $english-lavender;
+				color: $apricot;
+			}
+		}
+
+    &:active {
+      &::before {
+        background: $melon;
+        border: 0.15rem solid $melon;
+        color: $old-lavender;
+      }
+    }
+
+		&::before {
+			position: absolute;
+			content: 'CONTACT ME';
+			width: 12rem;
+			height: 4rem;
+			top: -0.25rem;
+			left: -0.25rem;
+			color: $english-lavender;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.25rem;
+			font-weight: 400;
+			letter-spacing: 0.25rem;
+			text-decoration: none;
+			white-space: nowrap;
+			background: $apricot;
+			border: 0.15rem solid $english-lavender;
 		}
 	}
 }
