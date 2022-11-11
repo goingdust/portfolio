@@ -67,6 +67,9 @@ const Textarea = <
 	const { isMobile } = useWindowSize();
 	const { hideNav, setHideNav } = useContext(HideNavContext);
 	const router = useRouter();
+	const [height, setHeight] = useState<number | undefined>();
+	const [lastDownY, setLastDownY] = useState(0);
+	const [isResizing, setIsResizing] = useState(false);
 
 	const handleSelect = useCallback(
 		(target: HTMLTextAreaElement) => {
@@ -108,8 +111,9 @@ const Textarea = <
 			'--caret-top': `${top}px`,
 			'--caret-left': `${left}px`,
 			'--caret-hidden': hide || !focus[id] ? 'hidden' : 'visible',
+			'--textarea-height': height ? height + 'px' : '30rem',
 		}),
-		[focus, hide, id, top, left]
+		[focus, hide, id, top, left, height]
 	) as CSSProperties;
 
 	return (
@@ -151,6 +155,32 @@ const Textarea = <
 					onChange={(e) => setValues((prev) => ({ ...prev, [id]: e.target.value }))}
 					onScroll={(e) => handleSelect(e.target as HTMLTextAreaElement)}
 				/>
+				<button
+					onMouseDown={(e) => {
+						setIsResizing(true);
+						setLastDownY(e.clientY);
+					}}
+					onMouseMove={(e) => {
+						if (!isResizing || !e.currentTarget.parentElement) return;
+						const textareaDiv = e.currentTarget.parentElement;
+						const height = parseFloat(window.getComputedStyle(textareaDiv).height);
+						setHeight((prev) => {
+              console.log(prev)
+							if (lastDownY < e.clientY) {
+								return (prev ? prev : height) + 1.000;
+							} else if (lastDownY > e.clientY) {
+								return (prev ? prev : height) - 1.000;
+							}
+						});
+            setLastDownY(e.clientY)
+					}}
+          onMouseUp={() => setIsResizing(false)}
+          onMouseLeave={() => setIsResizing(false)}
+					type='button'
+					className={styles.dragButton}
+				>
+					<div />
+				</button>
 			</div>
 			{errors[id] && <span className={styles.error}>{errors[id]}</span>}
 		</>

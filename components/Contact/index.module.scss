@@ -55,7 +55,7 @@ $size-times: var(--button-container-size-times);
 					width: 90vw;
 				}
 				z-index: -1;
-				height: 30rem;
+				height: var(--textarea-height);
 			}
 
       &:hover {
@@ -131,7 +131,7 @@ $size-times: var(--button-container-size-times);
 			}
 
 			textarea {
-				height: 30rem;
+				height: var(--textarea-height);
 				font-size: 1.5rem;
 				border: 0.15rem solid $english-lavender;
 				background: $apricot;
