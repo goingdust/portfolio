@@ -43,13 +43,22 @@ const Home = () => {
 				const mouse_x = e.clientX;
 				const mouse_y = e.clientY;
 				const radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
-				const degree = radians * (180 / Math.PI) * -1 + 270;
-				if (degree >= 90 && degree <= 270) {
+				const degree = radians * (90 / Math.PI) * -1 + 315;
+				if (degree <= 315 && degree >= 225) {
 					setStyle((prev) => ({ ...prev, '--img-flip': -1 }));
+					setStyle((prev) => ({
+						...prev,
+						'--img-rotate': degree - 90 + 'deg',
+						'--img-transition': '0s',
+					}));
 				} else {
 					setStyle((prev) => ({ ...prev, '--img-flip': 1 }));
+					setStyle((prev) => ({
+						...prev,
+						'--img-rotate': degree + 'deg',
+						'--img-transition': '0s',
+					}));
 				}
-				setStyle((prev) => ({ ...prev, '--img-rotate': degree + 'deg', '--img-transition': '0s' }));
 			});
 
 			document.getElementsByTagName('html')[0].addEventListener('mouseleave', () => {
