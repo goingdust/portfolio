@@ -1,6 +1,9 @@
 @mixin main-content-padding {
-	// padding: calc(10rem - 1.5rem) 3rem calc(10rem - 7rem) 3rem;
-  padding: calc(10rem - 1.5rem) 0 calc(10rem - 7rem) 0;
+  padding: calc(10rem - 1.5rem) 1.5rem calc(10rem - 7rem) 1.5rem;
+}
+
+@mixin nav-menu-padding {
+  padding: calc(10rem - 1.5rem) 3rem calc(10rem - 7rem) 3rem;
 }
 
 // Media Queries
