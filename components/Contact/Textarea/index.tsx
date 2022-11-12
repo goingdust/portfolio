@@ -164,18 +164,24 @@ const Textarea = <
 						if (!isResizing || !e.currentTarget.parentElement) return;
 						const textareaDiv = e.currentTarget.parentElement;
 						const height = parseFloat(window.getComputedStyle(textareaDiv).height);
+						const minHeight = 300;
+						const maxHeight = 800;
 						setHeight((prev) => {
-              console.log(prev)
 							if (lastDownY < e.clientY) {
-								return (prev ? prev : height) + 1.000;
+								const newHeight = (prev ? prev : height) + (e.clientY - lastDownY);
+								if (newHeight >= maxHeight) return prev;
+								return newHeight;
 							} else if (lastDownY > e.clientY) {
-								return (prev ? prev : height) - 1.000;
+								const newHeight = (prev ? prev : height) - (lastDownY - e.clientY);
+								if (newHeight <= minHeight) return prev;
+								return newHeight;
+							} else {
+								return prev;
 							}
 						});
-            setLastDownY(e.clientY)
 					}}
-          onMouseUp={() => setIsResizing(false)}
-          onMouseLeave={() => setIsResizing(false)}
+					onMouseUp={() => setIsResizing(false)}
+					onMouseLeave={() => setIsResizing(false)}
 					type='button'
 					className={styles.dragButton}
 				>
