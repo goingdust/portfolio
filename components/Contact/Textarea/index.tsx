@@ -3,6 +3,7 @@ import {
 	CSSProperties,
 	Dispatch,
 	SetStateAction,
+	SyntheticEvent,
 	useCallback,
 	useContext,
 	useEffect,
@@ -21,6 +22,9 @@ import {
 	ContactFormValues,
 } from '../../../types';
 import styles from './index.module.scss';
+import { Resizable, ResizeCallbackData } from 'react-resizable';
+import 'react-resizable/css/styles.css';
+import ResizableHandle from './ResizableHandle';
 
 type TextareaProps<
 	T extends ContactFormValues,
@@ -67,9 +71,7 @@ const Textarea = <
 	const { isMobile } = useWindowSize();
 	const { hideNav, setHideNav } = useContext(HideNavContext);
 	const router = useRouter();
-	const [height, setHeight] = useState<number | undefined>();
-	const [lastDownY, setLastDownY] = useState(0);
-	const [isResizing, setIsResizing] = useState(false);
+	const [height, setHeight] = useState<number>(400);
 
 	const handleSelect = useCallback(
 		(target: HTMLTextAreaElement) => {
@@ -81,7 +83,7 @@ const Textarea = <
 				target.selectionDirection === 'forward' ? target.selectionEnd : target.selectionStart;
 			const caret = getCaretCoordinates(target, targetSelection);
 
-			if (scrollHeight! + target.scrollTop < caret.top + 20 || caret.top < target.scrollTop) {
+			if (target.offsetHeight + target.scrollTop - 20 < caret.top || caret.top < target.scrollTop) {
 				setHide(true);
 			} else if (target.scrollHeight > scrollHeight!) {
 				setHide(false);
@@ -111,83 +113,75 @@ const Textarea = <
 			'--caret-top': `${top}px`,
 			'--caret-left': `${left}px`,
 			'--caret-hidden': hide || !focus[id] ? 'hidden' : 'visible',
-			'--textarea-height': height ? height + 'px' : '30rem',
+			'--textarea-height': `${height}px`,
 		}),
 		[focus, hide, id, top, left, height]
 	) as CSSProperties;
 
 	return (
 		<>
-			<div
-				className={`${styles.caret} ${contactStyles.textarea} ${
-					focus[id] ? contactStyles.inputFocus : contactStyles.inputBlur
-				}`}
-				style={style}
+			<Resizable
+				width={document.getElementById(id)?.parentElement?.offsetWidth!}
+				onResize={(e: SyntheticEvent, data: ResizeCallbackData) => {
+					setHeight(data.size.height);
+				}}
+				onResizeStart={() => {
+					setHide(true);
+				}}
+				onResizeStop={() => {
+					setHide(false);
+				}}
+				height={height}
+				resizeHandles={['s']}
+				minConstraints={[0, 300]}
+				maxConstraints={[0, 800]}
+				handle={<ResizableHandle styles={styles} />}
 			>
-				<textarea
-					name={name}
-					ref={ref}
-					id={id}
-					placeholder={focus[id] ? undefined : placeholder}
-					required={required}
-					value={values[id]}
-					onFocus={() => {
-						if (isMobile) {
-							// for hiding the nav buttons because of mobile keyboard taking up screen
-							setHideNav(true);
-						}
-						setFocus((prev) => ({ ...prev, [id]: true }));
-						setErrors((prev) => ({ ...prev, [id]: '' }));
-					}}
-					onBlur={() => {
-						if (isMobile) {
-							// unhide the nav buttons
-							setHideNav(false);
-						}
-						setFocus((prev) => ({ ...prev, [id]: false }));
-						validators &&
-							setErrors((prev) => ({
-								...prev,
-								[id]: composeValidators(values[id], name, validators[id]),
-							}));
-					}}
-					onSelect={(e) => handleSelect(e.target as HTMLTextAreaElement)}
-					onChange={(e) => setValues((prev) => ({ ...prev, [id]: e.target.value }))}
-					onScroll={(e) => handleSelect(e.target as HTMLTextAreaElement)}
-				/>
-				<button
-					onMouseDown={(e) => {
-						setIsResizing(true);
-						setLastDownY(e.clientY);
-					}}
-					onMouseMove={(e) => {
-						if (!isResizing || !e.currentTarget.parentElement) return;
-						const textareaDiv = e.currentTarget.parentElement;
-						const height = parseFloat(window.getComputedStyle(textareaDiv).height);
-						const minHeight = 300;
-						const maxHeight = 800;
-						setHeight((prev) => {
-							if (lastDownY < e.clientY) {
-								const newHeight = (prev ? prev : height) + (e.clientY - lastDownY);
-								if (newHeight >= maxHeight) return prev;
-								return newHeight;
-							} else if (lastDownY > e.clientY) {
-								const newHeight = (prev ? prev : height) - (lastDownY - e.clientY);
-								if (newHeight <= minHeight) return prev;
-								return newHeight;
-							} else {
-								return prev;
-							}
-						});
-					}}
-					onMouseUp={() => setIsResizing(false)}
-					onMouseLeave={() => setIsResizing(false)}
-					type='button'
-					className={styles.dragButton}
+				<div
+					className={`${styles.caret} ${contactStyles.textarea} ${
+						focus[id] ? contactStyles.inputFocus : contactStyles.inputBlur
+					}`}
+					style={style}
 				>
-					<div />
-				</button>
-			</div>
+					<textarea
+						name={name}
+						ref={ref}
+						id={id}
+						placeholder={focus[id] ? undefined : placeholder}
+						required={required}
+						value={values[id]}
+						onFocus={(e) => {
+							if (isMobile) {
+								// for hiding the nav buttons because of mobile keyboard taking up screen
+								setHideNav(true);
+							}
+							setFocus((prev) => ({ ...prev, [id]: true }));
+							setErrors((prev) => ({ ...prev, [id]: '' }));
+							// const targetSelection =
+							// 	e.target.selectionDirection === 'forward'
+							// 		? e.target.selectionEnd
+							// 		: e.target.selectionStart;
+							// const caret = getCaretCoordinates(e.target, targetSelection);
+							// e.target.scrollTo(caret.left, caret.top);
+						}}
+						onBlur={() => {
+							if (isMobile) {
+								// unhide the nav buttons
+								setHideNav(false);
+							}
+							setFocus((prev) => ({ ...prev, [id]: false }));
+							validators &&
+								setErrors((prev) => ({
+									...prev,
+									[id]: composeValidators(values[id], name, validators[id]),
+								}));
+						}}
+						onSelect={(e) => handleSelect(e.target as HTMLTextAreaElement)}
+						onChange={(e) => setValues((prev) => ({ ...prev, [id]: e.target.value }))}
+						onScroll={(e) => handleSelect(e.target as HTMLTextAreaElement)}
+					/>
+				</div>
+			</Resizable>
 			{errors[id] && <span className={styles.error}>{errors[id]}</span>}
 		</>
 	);
