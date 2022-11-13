@@ -125,9 +125,8 @@ const Textarea = <
 				onResize={(e: SyntheticEvent, data: ResizeCallbackData) => {
 					setHeight(data.size.height);
 				}}
-				onResizeStart={() => {
-          setFocus((prev) => ({ ...prev, [id]: false }));
-				}}
+				onResizeStart={() => ref.current?.blur()}
+				onResizeStop={() => ref.current?.focus()}
 				height={height}
 				resizeHandles={['s']}
 				minConstraints={[0, 300]}
