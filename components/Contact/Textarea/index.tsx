@@ -126,7 +126,6 @@ const Textarea = <
 					setHeight(data.size.height);
 				}}
 				onResizeStart={() => ref.current?.blur()}
-				onResizeStop={() => ref.current?.focus()}
 				height={height}
 				resizeHandles={['s']}
 				minConstraints={[0, 300]}
