@@ -8,9 +8,11 @@ const ResizableHandle = React.forwardRef(
 				ref={ref as MutableRefObject<HTMLButtonElement | null>}
 				type='button'
 				className={styles.dragButton}
+        aria-label="Adjust Message Box Height"
         {...props}
 			>
 				<div />
+        <div />
 			</button>
 		);
 	}
