@@ -126,10 +126,7 @@ const Textarea = <
 					setHeight(data.size.height);
 				}}
 				onResizeStart={() => {
-					setHide(true);
-				}}
-				onResizeStop={() => {
-					setHide(false);
+          setFocus((prev) => ({ ...prev, [id]: false }));
 				}}
 				height={height}
 				resizeHandles={['s']}
