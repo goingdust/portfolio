@@ -12,16 +12,47 @@
 		padding: 0 1.5rem;
 		gap: 1.5rem;
 
-		.light::before {
-			background: $melon;
-		}
-
-		.dark::before {
-			background: $old-lavender;
-		}
-
-		.light:active::before {
+		.navHeaderBtn {
+			width: 7rem;
+			height: 4rem;
 			background: $english-lavender;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transition: 0.1s ease-in-out;
+		}
+
+		.light {
+			filter: drop-shadow(0.25rem 0.25rem $melon);
+
+			&:hover {
+				filter: drop-shadow(0.25rem 0.5rem $melon);
+			}
+
+			&:active {
+				background: $melon;
+				filter: drop-shadow(0.25rem 0.5rem 2px $english-lavender);
+				svg {
+					color: $old-lavender;
+				}
+			}
+		}
+
+		.dark {
+			filter: drop-shadow(0.25rem 0.25rem $old-lavender);
+
+			&:hover {
+				filter: drop-shadow(0.25rem 0.5rem $old-lavender);
+			}
+
+			&:active {
+				background: $melon;
+				filter: drop-shadow(0.25rem 0.5rem 2px $old-lavender);
+				svg {
+					color: $old-lavender;
+				}
+			}
 		}
 
 		.navHeaderLinks {
@@ -47,16 +78,20 @@
 }
 
 .navDisplay {
-	z-index: -2;
+	z-index: -1;
 	height: 100vh;
 	width: 100vw;
 	background: $old-lavender;
 	margin-top: -7rem;
 	position: absolute;
 	display: flex;
-	list-style: none;
 	flex-direction: column;
+	justify-content: space-between;
 	@include nav-menu-padding;
+
+	ul {
+		list-style: none;
+	}
 
 	li {
 		margin: 0.5rem 0;
@@ -93,7 +128,7 @@
 	padding-left: 0;
 	opacity: 0;
 	background: $apricot;
-  pointer-events: none;
+	pointer-events: none;
 }
 
 @keyframes showFromLeft {

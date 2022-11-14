@@ -3,6 +3,7 @@ import { useCallback, useContext, useState } from 'react';
 import { GitHub, LinkedIn, Menu, MenuOpen } from '@mui/icons-material';
 import NavLinkItem from './NavLinkItem';
 import { HideNavContext } from '../../contexts/HideNavProvider';
+import Footer from '../Footer';
 
 const Nav = () => {
 	const [navVisible, setNavVisible] = useState<boolean>();
@@ -20,7 +21,7 @@ const Nav = () => {
 		<nav className={styles.navBar}>
 			<header className={hideNav ? 'bounce-out-up' : 'bounce-in-down'}>
 				<button
-					className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
+					className={`${styles.navHeaderBtn} ${navVisible ? styles.light : styles.dark}`}
 					onClick={headerNavLinkItemClickHandler}
 					aria-label={navVisible ? 'Close Nav Menu' : 'Nav Menu'}
 				>
@@ -32,7 +33,7 @@ const Nav = () => {
 							target='_blank'
 							rel='noreferrer'
 							href='https://www.linkedin.com/in/dusty-luck'
-							className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
+							className={`${styles.navHeaderBtn} ${navVisible ? styles.light : styles.dark}`}
 							aria-label='LinkedIn'
 							onClick={headerNavLinkItemClickHandler}
 						>
@@ -44,7 +45,7 @@ const Nav = () => {
 							target='_blank'
 							rel='noreferrer'
 							href='https://github.com/goingdust'
-							className={`nav-button-animate ${navVisible ? styles.light : styles.dark}`}
+							className={`${styles.navHeaderBtn} ${navVisible ? styles.light : styles.dark}`}
 							aria-label='GitHub'
 							onClick={headerNavLinkItemClickHandler}
 						>
@@ -53,36 +54,39 @@ const Nav = () => {
 					</li>
 				</ul>
 			</header>
-			<ul
+			<div
 				className={`${styles.navDisplay} ${
 					navVisible ? styles.navShow : navVisible !== undefined ? styles.navHide : 'hidden'
 				}`}
 			>
-				<li>
-					<NavLinkItem
-						path='/'
-						onClickHandler={navLinkItemClickHandler}
-						label='Home'
-						navVisible={navVisible}
-					/>
-				</li>
-				<li>
-					<NavLinkItem
-						path='/about'
-						onClickHandler={navLinkItemClickHandler}
-						label='About'
-						navVisible={navVisible}
-					/>
-				</li>
-				<li>
-					<NavLinkItem
-						path='/contact'
-						onClickHandler={navLinkItemClickHandler}
-						label='Contact'
-						navVisible={navVisible}
-					/>
-				</li>
-			</ul>
+				<ul>
+					<li>
+						<NavLinkItem
+							path='/'
+							onClickHandler={navLinkItemClickHandler}
+							label='Home'
+							navVisible={navVisible}
+						/>
+					</li>
+					<li>
+						<NavLinkItem
+							path='/about'
+							onClickHandler={navLinkItemClickHandler}
+							label='About'
+							navVisible={navVisible}
+						/>
+					</li>
+					<li>
+						<NavLinkItem
+							path='/contact'
+							onClickHandler={navLinkItemClickHandler}
+							label='Contact'
+							navVisible={navVisible}
+						/>
+					</li>
+				</ul>
+				<Footer />
+			</div>
 		</nav>
 	);
 };
