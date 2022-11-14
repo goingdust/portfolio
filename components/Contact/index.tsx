@@ -154,7 +154,7 @@ const Contact = () => {
 					{formStatus === REQUEST_STATUS.IDLE && (
 						<button type='submit' aria-label='Send Message'>
 							<Image src={Mail} alt='mail' />
-							<span>{'->'}</span>
+							<span>{'→'}</span>
 						</button>
 					)}
 					{formStatus === REQUEST_STATUS.FETCHING && (

@@ -261,14 +261,14 @@ $size-times: var(--button-container-size-times);
 				font-size: 1.5rem;
 				background: $english-lavender;
 				width: fit-content;
-				width: 8rem;
+				width: 7.5rem;
 				height: 4rem;
 				color: #fff;
 				position: relative;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				gap: 0.4rem;
+				gap: 0.25rem;
 
 				img {
 					filter: invert(1);
@@ -284,6 +284,7 @@ $size-times: var(--button-container-size-times);
 				}
 
 				span {
+          font-size: 2rem;
 					@include for_breakpoint(mobile) {
 						margin-bottom: 0.25rem;
 					}
@@ -293,8 +294,8 @@ $size-times: var(--button-container-size-times);
 					position: absolute;
 					content: '';
 					background: $old-lavender;
-					width: 8rem;
-					height: 4rem;
+					width: 100%;
+					height: 100%;
 					z-index: -1;
 					left: 0.25rem;
 				}
