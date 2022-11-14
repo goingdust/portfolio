@@ -68,10 +68,12 @@ const Textarea = <
 	const [left, setLeft] = useState<number>(0);
 	const [scrollHeight, setScrollHeight] = useState<undefined | number>();
 	const [hide, setHide] = useState(false);
-	const { isMobile } = useWindowSize();
+	const { isMobile, isTablet } = useWindowSize();
 	const { hideNav, setHideNav } = useContext(HideNavContext);
 	const router = useRouter();
-	const [height, setHeight] = useState<number>(400);
+	const [height, setHeight] = useState<number>(isMobile ? 200 : isTablet ? 250 : 300);
+	const minHeight = useMemo(() => (isMobile ? 250 : isTablet ? 300 : 345), [isMobile, isTablet]);
+	const maxHeight = useMemo(() => (isMobile ? 500 : isTablet ? 600 : 700), [isMobile, isTablet]);
 
 	const handleSelect = useCallback(
 		(target: HTMLTextAreaElement) => {
@@ -128,9 +130,16 @@ const Textarea = <
 				onResizeStart={() => ref.current?.blur()}
 				height={height}
 				resizeHandles={['s']}
-				minConstraints={[0, 300]}
-				maxConstraints={[0, 800]}
-				handle={<ResizableHandle styles={styles} />}
+				minConstraints={[0, minHeight]}
+				maxConstraints={[0, maxHeight]}
+				handle={
+					<ResizableHandle
+						styles={styles}
+						height={height}
+						minHeight={minHeight}
+						maxHeight={maxHeight}
+					/>
+				}
 			>
 				<div
 					className={`${styles.caret} ${contactStyles.textarea} ${

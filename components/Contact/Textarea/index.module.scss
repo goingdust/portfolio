@@ -9,34 +9,57 @@
 }
 
 .error {
-  font-size: 1.25rem;
+	font-size: 1.25rem;
 }
 
 .dragButton {
-  position: absolute;
-  bottom: 0;
-  width: 6rem;
-  height: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: n-resize;
+	position: absolute;
+	bottom: 0;
+	width: 4rem;
+	height: 3rem;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: n-resize;
 
-  div:nth-child(1) {
-    width: 1.5rem;
-    height: 0.25rem;
-    background: $english-lavender;
-    pointer-events: none;
-  }
-  
-  div:nth-child(2) {
-    width: 3rem;
-    height: 0.25rem;
-    background: $english-lavender;
-    pointer-events: none;
-  }
+	div {
+		pointer-events: none;
+		color: $english-lavender;
+		font-size: 2.5rem;
+		position: relative;
+	}
+
+	div {
+		&::before {
+			position: absolute;
+			content: 'Drag me!';
+			left: -2.5rem;
+			top: -3rem;
+			font-size: 1.25rem;
+			background: $pastel-pink;
+			color: $apricot;
+			padding: 0.5rem 0.75rem;
+			width: max-content;
+			text-shadow: 1px 1px 1px $old-lavender;
+      display: none;
+		}
+	}
+
+	.dragMe {
+		&::before:global {
+			animation: bounceIn 0.3s forwards;
+      display: block;
+		}
+	}
+
+	.dragMeNot {
+		&::before:global {
+			animation: bounceOut 0.3s forwards;
+      display: block;
+		}
+	}
 }
