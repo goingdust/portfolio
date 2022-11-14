@@ -110,14 +110,21 @@ const Textarea = <
 		}
 	}, [setHideNav, isMobile, hideNav, router.events]);
 
+  // CSS variables
 	const style = useMemo(
 		() => ({
 			'--caret-top': `${top}px`,
 			'--caret-left': `${left}px`,
 			'--caret-hidden': hide || !focus[id] ? 'hidden' : 'visible',
+		}),
+		[focus, hide, id, top, left]
+	) as CSSProperties;
+
+	const styleHeight = useMemo(
+		() => ({
 			'--textarea-height': `${height}px`,
 		}),
-		[focus, hide, id, top, left, height]
+		[height]
 	) as CSSProperties;
 
 	return (
@@ -145,7 +152,7 @@ const Textarea = <
 					className={`${styles.caret} ${contactStyles.textarea} ${
 						focus[id] ? contactStyles.textareaFocus : contactStyles.textareaBlur
 					}`}
-					style={style}
+					style={{...style, ...styleHeight}}
 				>
 					<textarea
 						name={name}
@@ -161,12 +168,6 @@ const Textarea = <
 							}
 							setFocus((prev) => ({ ...prev, [id]: true }));
 							setErrors((prev) => ({ ...prev, [id]: '' }));
-							// const targetSelection =
-							// 	e.target.selectionDirection === 'forward'
-							// 		? e.target.selectionEnd
-							// 		: e.target.selectionStart;
-							// const caret = getCaretCoordinates(e.target, targetSelection);
-							// e.target.scrollTo(caret.left, caret.top);
 						}}
 						onBlur={() => {
 							if (isMobile) {

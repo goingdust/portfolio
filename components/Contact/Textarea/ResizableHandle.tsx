@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useState } from 'react';
+import React, { MutableRefObject, useMemo, useState } from 'react';
 
 const ResizableHandle = React.forwardRef(
 	(
@@ -12,16 +12,27 @@ const ResizableHandle = React.forwardRef(
 		ref
 	) => {
 		const { handleAxis, styles, height, minHeight, maxHeight } = props;
-		const resizeProps = {
-			...props,
-		};
-		delete resizeProps.styles;
-		delete resizeProps.height;
-		delete resizeProps.minHeight;
-		delete resizeProps.maxHeight;
-		delete resizeProps.handleAxis;
-
 		const [className, setClassName] = useState<string | undefined>('');
+		const resizeProps = useMemo(() => {
+			const newProps = { ...props };
+			delete newProps.styles;
+			delete newProps.height;
+			delete newProps.minHeight;
+			delete newProps.maxHeight;
+			delete newProps.handleAxis;
+			return newProps;
+		}, [props]);
+
+		const icon = useMemo(() => {
+			return height! <= minHeight! ? (
+				<div className={className}>↧</div>
+			) : height! >= maxHeight! ? (
+				<div className={className}>↥</div>
+			) : (
+				<div className={className}>↨</div>
+			);
+		}, [className, height, maxHeight, minHeight]);
+
 		return (
 			<button
 				ref={ref as MutableRefObject<HTMLButtonElement | null>}
@@ -35,13 +46,7 @@ const ResizableHandle = React.forwardRef(
 				onMouseEnter={() => setClassName(styles?.dragMe)}
 				onMouseLeave={() => setClassName(styles?.dragMeNot)}
 			>
-				{height! <= minHeight! ? (
-					<div className={className}>↧</div>
-				) : height! >= maxHeight! ? (
-					<div className={className}>↥</div>
-				) : (
-					<div className={className}>↨</div>
-				)}
+				{icon}
 			</button>
 		);
 	}

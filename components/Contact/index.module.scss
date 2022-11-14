@@ -41,17 +41,8 @@ $size-times: var(--button-container-size-times);
 		.textarea {
 			position: relative;
 			caret-color: transparent;
-			height: var(--textarea-height);
 			background: $apricot;
-			@include for_breakpoint(desktop) {
-				width: 50rem;
-			}
-			@include for_breakpoint(tablet) {
-				width: 40rem;
-			}
-			@include for_breakpoint(mobile) {
-				width: 90vw;
-			}
+			width: 100%;
 
 			&:hover {
 				box-shadow: 0.25rem 0.5rem $old-lavender;
@@ -86,9 +77,9 @@ $size-times: var(--button-container-size-times);
 			input {
 				background: $apricot;
 				border: 0.15rem solid $english-lavender;
-				height: 3.5rem;
-				font-size: 1.5rem;
+				height: 100%;
 				width: 100%;
+        font-size: 1.5rem;
 				outline: none;
 				color: $old-lavender;
 				padding: 0 1rem;
@@ -117,7 +108,8 @@ $size-times: var(--button-container-size-times);
 			}
 
 			textarea {
-				height: calc(100% - 2.5rem);
+        margin-bottom: 2rem;
+        height: var(--textarea-height);
 				width: 100%;
 				font-size: 1.5rem;
 				background: $apricot;
@@ -136,6 +128,7 @@ $size-times: var(--button-container-size-times);
 
 		.input {
 			@extend .textarea;
+      height: 3.5rem;
 		}
 
 		.buttonContainer {
