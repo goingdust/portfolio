@@ -85,7 +85,7 @@ const Nav = () => {
 						/>
 					</li>
 				</ul>
-				<Footer />
+				<Footer navVisible={navVisible} />
 			</div>
 		</nav>
 	);

@@ -1,17 +1,28 @@
 @import '@styles/colors';
+@import '@styles/keyframes';
 
 .footer {
 	width: 100%;
 	height: 5rem;
-  justify-self: end;
+	justify-self: end;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-  position: relative;
-  color: $apricot;
+	position: relative;
+	color: $apricot;
 
-  span {
-    font-size: 1.25rem;
-  }
+	span {
+		font-size: 1.25rem;
+	}
+}
+
+.show {
+	&:global {
+		animation: fadeIn 1s 0.5s forwards, hideThenShow 0.5s forwards;
+	}
+}
+
+.hide {
+	visibility: hidden;
 }
