@@ -35,13 +35,13 @@ $size-times: var(--button-container-size-times);
 			align-self: flex-start;
 			font-weight: 400;
 			font-size: 3rem;
-      margin-top: 0;
+			margin-top: 0;
 		}
 
 		.textarea {
 			position: relative;
 			caret-color: transparent;
-      height: var(--textarea-height);
+			height: var(--textarea-height);
 
 			&::before {
 				content: '';
@@ -60,19 +60,19 @@ $size-times: var(--button-container-size-times);
 				height: 100%;
 			}
 
-      &:hover {
-        &::before {
-          top: 0.5rem;
-          transition: 0.1s ease-in-out;
-        }
-      }
+			&:hover {
+				&::before {
+					top: 0.5rem;
+					transition: 0.1s ease-in-out;
+				}
+			}
 
-      &:not(:hover) {
-        &::before {
-          top: 0.25rem;
-          transition: 0.1s ease-in-out;
-        }
-      }
+			&:not(:hover) {
+				&::before {
+					top: 0.25rem;
+					transition: 0.1s ease-in-out;
+				}
+			}
 
 			&::after {
 				content: '';
@@ -284,10 +284,8 @@ $size-times: var(--button-container-size-times);
 				}
 
 				span {
-          font-size: 2rem;
-					@include for_breakpoint(mobile) {
-						margin-bottom: 0.25rem;
-					}
+					font-size: 2rem;
+					margin-bottom: 0.25rem;
 				}
 
 				&::before {
