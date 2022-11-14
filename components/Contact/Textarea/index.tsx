@@ -71,7 +71,7 @@ const Textarea = <
 	const { isMobile, isTablet } = useWindowSize();
 	const { hideNav, setHideNav } = useContext(HideNavContext);
 	const router = useRouter();
-	const [height, setHeight] = useState<number>(isMobile ? 200 : isTablet ? 250 : 300);
+	const [height, setHeight] = useState<number>(isMobile ? 250 : isTablet ? 300 : 345);
 	const minHeight = useMemo(() => (isMobile ? 250 : isTablet ? 300 : 345), [isMobile, isTablet]);
 	const maxHeight = useMemo(() => (isMobile ? 500 : isTablet ? 600 : 700), [isMobile, isTablet]);
 

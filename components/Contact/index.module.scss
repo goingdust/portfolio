@@ -109,7 +109,7 @@ $size-times: var(--button-container-size-times);
 
 			textarea {
         margin-bottom: 2rem;
-        height: var(--textarea-height);
+        height: calc(var(--textarea-height) - 2.75rem);
 				width: 100%;
 				font-size: 1.5rem;
 				background: $apricot;
