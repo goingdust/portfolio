@@ -21,7 +21,7 @@ $size-times: var(--button-container-size-times);
 	}
 
 	form {
-		@include for_breakpoint(desktop) {
+		@include for_breakpoint(desktop fourK) {
 			width: 50rem;
 		}
 		@include for_breakpoint(tablet) {

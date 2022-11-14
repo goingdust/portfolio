@@ -27,6 +27,12 @@
 
 html {
 	box-sizing: border-box;
+  @include for_breakpoint(desktop) {
+    font-size: 16px;
+  }
+  @include for_breakpoint(fourK) {
+    font-size: 20px;
+  }
 	@include for_breakpoint(tablet) {
 		font-size: 14px;
 	}
