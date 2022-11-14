@@ -123,7 +123,7 @@ const Textarea = <
 	return (
 		<>
 			<Resizable
-				width={document.getElementById(id)?.parentElement?.offsetWidth!}
+				width={0}
 				onResize={(e: SyntheticEvent, data: ResizeCallbackData) => {
 					setHeight(data.size.height);
 				}}
@@ -143,7 +143,7 @@ const Textarea = <
 			>
 				<div
 					className={`${styles.caret} ${contactStyles.textarea} ${
-						focus[id] ? contactStyles.inputFocus : contactStyles.inputBlur
+						focus[id] ? contactStyles.textareaFocus : contactStyles.textareaBlur
 					}`}
 					style={style}
 				>

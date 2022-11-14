@@ -42,36 +42,20 @@ $size-times: var(--button-container-size-times);
 			position: relative;
 			caret-color: transparent;
 			height: var(--textarea-height);
-
-			&::before {
-				content: '';
-				position: absolute;
-				background: $old-lavender;
-				@include for_breakpoint(desktop) {
-					width: 50rem;
-				}
-				@include for_breakpoint(tablet) {
-					width: 40rem;
-				}
-				@include for_breakpoint(mobile) {
-					width: 90vw;
-				}
-				z-index: -1;
-				height: 100%;
+			background: $apricot;
+			@include for_breakpoint(desktop) {
+				width: 50rem;
+			}
+			@include for_breakpoint(tablet) {
+				width: 40rem;
+			}
+			@include for_breakpoint(mobile) {
+				width: 90vw;
 			}
 
 			&:hover {
-				&::before {
-					top: 0.5rem;
-					transition: 0.1s ease-in-out;
-				}
-			}
-
-			&:not(:hover) {
-				&::before {
-					top: 0.25rem;
-					transition: 0.1s ease-in-out;
-				}
+				box-shadow: 0.25rem 0.5rem $old-lavender;
+				transition: 0.1s ease-in-out;
 			}
 
 			&::after {
@@ -133,15 +117,16 @@ $size-times: var(--button-container-size-times);
 			}
 
 			textarea {
-				height: 100%;
-				font-size: 1.5rem;
-				border: 0.15rem solid $english-lavender;
-				background: $apricot;
+				height: calc(100% - 2.5rem);
 				width: 100%;
+				font-size: 1.5rem;
+				background: $apricot;
+				border: none;
 				outline: none;
 				resize: none;
 				color: $old-lavender;
 				padding: 1rem;
+				padding-bottom: 0;
 
 				&::placeholder {
 					color: $old-lavender-faded;
@@ -326,26 +311,31 @@ $size-times: var(--button-container-size-times);
 }
 
 .inputFocus {
-	textarea,
+	box-shadow: 0.5rem 0.25rem $old-lavender;
+	transition: 0.1s ease-in-out;
+
 	input {
 		border: 0.15rem solid $pastel-pink !important;
-		transition: 0.1s ease-in-out;
-	}
-
-	&::before {
-		left: 0.5rem;
 		transition: 0.1s ease-in-out;
 	}
 }
 
 .inputBlur {
-	textarea,
+	box-shadow: 0.25rem 0.25rem $old-lavender;
+	transition: 0.1s ease-in-out;
+
 	input {
 		border: 0.15rem solid $english-lavender !important;
 		transition: 0.1s ease-in-out;
 	}
-	&::before {
-		left: 0.25rem;
-		transition: 0.1s ease-in-out;
-	}
+}
+
+.textareaFocus {
+	@extend .inputFocus;
+	border: 0.15rem solid $pastel-pink !important;
+}
+
+.textareaBlur {
+	@extend .inputBlur;
+	border: 0.15rem solid $english-lavender !important;
 }

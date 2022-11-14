@@ -15,25 +15,23 @@
 .dragButton {
 	position: absolute;
 	bottom: 0;
-	width: 4rem;
-	height: 3rem;
+	width: 3rem;
+	height: 2.5rem;
 	left: 50%;
 	transform: translateX(-50%);
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: 0.5rem;
 	cursor: n-resize;
 
 	div {
-		pointer-events: none;
+    pointer-events: none;
 		color: $english-lavender;
 		font-size: 2.5rem;
 		position: relative;
-	}
+    margin-top: -0.25rem;
 
-	div {
 		&::before {
 			position: absolute;
 			content: 'Drag me!';
