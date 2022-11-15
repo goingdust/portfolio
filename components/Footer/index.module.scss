@@ -1,16 +1,18 @@
 @import '@styles/colors';
 @import '@styles/keyframes';
+@import '@styles/mixins';
 
 .footer {
 	width: 100%;
-	height: 5rem;
 	justify-self: end;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
 	position: relative;
 	color: $apricot;
+	@include for_breakpoint(mobile) {
+		margin: 2rem 0 4rem 0;
+	}
 
 	span {
 		font-size: 1.25rem;
