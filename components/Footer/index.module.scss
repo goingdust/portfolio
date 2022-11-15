@@ -20,7 +20,10 @@
 
 .show {
 	&:global {
-		animation: fadeIn 1s 0.5s forwards, hideThenShow 0.5s forwards;
+		@include for_breakpoint(mobile) {
+      animation: fadeIn 1s 0.8s forwards, hideThenShow 0.8s forwards;
+    }
+    animation: fadeIn 1s 0.5s forwards, hideThenShow 0.5s forwards;
 	}
 }
 

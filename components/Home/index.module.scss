@@ -37,6 +37,7 @@
 				margin: 0;
 				font-size: 3rem;
 				font-weight: 400;
+        width: calc(100% + 1ch);
 				@include typed($greeting, $speeds1, $options1);
 				padding-right: 1ch;
 
