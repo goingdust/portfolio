@@ -14,13 +14,12 @@ const NavLinkItem = ({
 	label: string;
 	navVisible?: boolean;
 }) => {
-	const router = useRouter();
 	const [hovering, setHovering] = useState(false);
 	return (
 		<>
 			<Link href={path} passHref legacyBehavior>
 				<a
-					className={`${router.pathname === path ? styles.active : ''}`}
+					className={`${navVisible ? styles.show : styles.hide}`}
 					onClick={onClickHandler}
 					onMouseEnter={() => setHovering(true)}
 					onMouseLeave={() => setHovering(false)}

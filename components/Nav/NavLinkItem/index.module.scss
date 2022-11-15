@@ -1,4 +1,5 @@
 @import '@styles/colors';
+@import '@styles/keyframes';
 
 .underline {
   width: 0;
@@ -16,6 +17,16 @@
 	animation-fill-mode: backwards;
 	animation-name: moveToLeft;
 	animation-duration: 1s;
+}
+
+.show {
+	&:global {
+		animation: fadeIn 1s 0.5s forwards, hideThenShow 0.5s forwards;
+	}
+}
+
+.hide {
+	visibility: hidden;
 }
 
 @keyframes moveToRight {
