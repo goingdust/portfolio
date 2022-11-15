@@ -88,7 +88,7 @@ button {
 }
 
 .slide-in-up {
-	animation: hideThenShow #{calc($default-delay + $h2-animation-time + 0.6)}s forwards,
+	animation: hideThenShow #{calc($default-delay + $h2-animation-time + 0.55)}s forwards,
 		slideInUp 1s #{calc($default-delay + $h2-animation-time + 0.5)}s forwards;
 }
 
