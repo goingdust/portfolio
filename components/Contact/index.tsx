@@ -83,7 +83,7 @@ const Contact = () => {
 
 			setFormStatus(REQUEST_STATUS.FETCHING);
 
-			submit(values);
+			// submit(values);
 		},
 		[validators, values, submit]
 	);
@@ -93,7 +93,7 @@ const Contact = () => {
 			'--flex-direction': formStatus === REQUEST_STATUS.ERROR ? 'row' : 'column',
 			'--msg-flex-gap': formStatus === REQUEST_STATUS.ERROR ? '1rem' : '0.25rem',
 			'--mobile-form': formStatus !== REQUEST_STATUS.IDLE ? (isMobile ? 'none' : 'flex') : 'flex',
-			'--button-container-size-times': isMobile && formStatus !== REQUEST_STATUS.IDLE ? 1.5 : 1,
+			'--size-times': isMobile && formStatus !== REQUEST_STATUS.IDLE ? 1.5 : 1,
 		}),
 		[formStatus, isMobile]
 	) as CSSProperties;
@@ -160,7 +160,7 @@ const Contact = () => {
 					{formStatus === REQUEST_STATUS.FETCHING && (
 						<>
 							<span className={styles.sending}>sending</span>
-							<BlocksLoader className={styles.loader} />
+							<BlocksLoader />
 							<span className={styles.sending}>message</span>
 						</>
 					)}

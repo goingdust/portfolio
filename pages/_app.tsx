@@ -2,12 +2,16 @@ import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import Loader from '../components/Loader';
 import { HideNavProvider } from '../contexts/HideNavProvider';
+import { useRouter } from 'next/router';
+import BlocksLoader from '../components/BlocksLoader';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [isLoaderVisible, setIsLoaderVisible] = useState(true);
+	const [routeChanging, setRouteChanging] = useState(false);
+	const router = useRouter();
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
@@ -15,6 +19,24 @@ function MyApp({ Component, pageProps }: AppProps) {
 		}, 2000);
 		return () => clearTimeout(timeout);
 	}, []);
+
+	useEffect(() => {
+		router.events.on('routeChangeStart', () => {
+			setRouteChanging(true);
+		});
+		router.events.on('routeChangeComplete', () => {
+			setRouteChanging(false);
+		});
+	}, [router.events]);
+
+	const routeLoadingStyle = {
+		width: '100%',
+		height: '100%',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		'--size-times': 1.5,
+	} as CSSProperties;
 
 	return (
 		<>
@@ -34,7 +56,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 			) : (
 				<HideNavProvider>
 					<Layout>
-						<Component {...pageProps} />
+						{routeChanging ? (
+							<div style={routeLoadingStyle}>
+								<BlocksLoader />
+							</div>
+						) : (
+							<Component {...pageProps} />
+						)}
 					</Layout>
 				</HideNavProvider>
 			)}

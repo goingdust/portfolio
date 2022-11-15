@@ -1,6 +1,6 @@
 @import '@styles/colors';
 
-$size-times: var(--button-container-size-times);
+$size-times: var(--size-times);
 $squarew: calc(1rem * $size-times);
 $squareh: calc(1rem * $size-times);
 $squaremargin: calc(0.25rem * $size-times);
