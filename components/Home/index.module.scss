@@ -18,7 +18,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-    flex-wrap: wrap;
+		flex-wrap: wrap;
 		gap: 3rem;
 		@include for_breakpoint(mobile) {
 			flex-direction: column;
@@ -28,15 +28,15 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-      width: 30.5rem;
-      @include for_breakpoint(mobile) {
-        width: fit-content;
-      }
+			width: 30.5rem;
+			@include for_breakpoint(mobile) {
+				width: fit-content;
+			}
 
 			.headingContainer {
 				position: relative;
 				margin: 1rem 0;
-        width: 100%;
+				width: 100%;
 			}
 
 			.homeTitle {
@@ -47,7 +47,7 @@
 				font-weight: 400;
 				@include typed($greeting, $speeds1, $options1);
 				padding-right: 1ch;
-        width: 100%;
+				width: 100%;
 
 				&.hide {
 					&::after {
@@ -66,7 +66,7 @@
 				font-weight: 400;
 				padding-right: 1ch;
 				visibility: hidden;
-        width: 100%;
+				width: 100%;
 			}
 
 			.homeSubtitleHidden {
@@ -86,7 +86,7 @@
 				visibility: hidden;
 				@include typed($job-title, $speeds2, $options2);
 				padding-right: 2ch;
-        width: 100%;
+				width: 100%;
 
 				&.show {
 					visibility: visible;
@@ -115,44 +115,30 @@
 	.flatButton {
 		width: 12rem;
 		height: 4rem;
-		background: $old-lavender;
 		align-self: center;
-		position: relative;
 		margin-bottom: 2rem;
+		color: $english-lavender;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 1.25rem;
+		font-weight: 400;
+		letter-spacing: 0.25rem;
+		text-decoration: none;
+		white-space: nowrap;
+		border: 0.15rem solid $english-lavender;
+		background: $apricot;
+		filter: drop-shadow(0.25rem 0.25rem $old-lavender);
 
 		&:hover {
-			&::before {
-				background: $english-lavender;
-				color: $apricot;
-			}
+			background: $english-lavender;
+			color: $apricot;
 		}
 
 		&:active {
-			&::before {
-				background: $melon;
-				border: 0.15rem solid $melon;
-				color: $old-lavender;
-			}
-		}
-
-		&::before {
-			position: absolute;
-			content: 'CONTACT ME';
-			width: 12rem;
-			height: 4rem;
-			top: -0.25rem;
-			left: -0.25rem;
-			color: $english-lavender;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			font-size: 1.25rem;
-			font-weight: 400;
-			letter-spacing: 0.25rem;
-			text-decoration: none;
-			white-space: nowrap;
-			background: $apricot;
-			border: 0.15rem solid $english-lavender;
+			background: $melon;
+			border: 0.15rem solid $melon;
+			color: $old-lavender;
 		}
 	}
 }
