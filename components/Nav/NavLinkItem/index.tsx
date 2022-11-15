@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 
 const NavLinkItem = ({
@@ -15,6 +15,13 @@ const NavLinkItem = ({
 	navVisible?: boolean;
 }) => {
 	const [hovering, setHovering] = useState(false);
+
+	useEffect(() => {
+		if (!navVisible) {
+			setHovering(false);
+		}
+	}, [navVisible]);
+
 	return (
 		<>
 			<Link href={path} passHref legacyBehavior>
@@ -27,11 +34,7 @@ const NavLinkItem = ({
 					{label}
 				</a>
 			</Link>
-			<div
-				className={`${styles.underline} ${hovering ? styles.mouseEnter : styles.mouseLeave} ${
-					navVisible === false ? styles.mouseLeave : ''
-				}`}
-			/>
+			<div className={`${styles.underline} ${hovering ? styles.mouseEnter : styles.mouseLeave}`} />
 		</>
 	);
 };
