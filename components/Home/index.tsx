@@ -11,7 +11,7 @@ const Home = () => {
 		'initial-avatar-animate'
 	);
 	const [timeoutActive, setTimeoutActive] = useState(false);
-	const h1TypingDelay = 2800; // determined by (num of characters * typing speed + animation delay) in /styles/_constiables.scss
+	const h1TypingDelay = 2500; // determined by (num of characters * typing speed + animation delay) in /styles/_constiables.scss
 	const [img, setImg] = useState<HTMLImageElement>();
 	const [style, setStyle] = useState<CSSProperties | undefined>();
 	const { isDesktop } = useWindowSize();
