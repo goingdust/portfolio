@@ -11,9 +11,8 @@
 	position: relative;
 	color: $apricot;
 	@include for_breakpoint(mobile) {
-		margin: 2rem 0 4rem 0;
-	}
-
+    margin-bottom: 30%;
+  }
 	span {
 		font-size: 1.25rem;
 	}
