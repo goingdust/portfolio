@@ -83,7 +83,7 @@ const Contact = () => {
 
 			setFormStatus(REQUEST_STATUS.FETCHING);
 
-			// submit(values);
+			submit(values);
 		},
 		[validators, values, submit]
 	);

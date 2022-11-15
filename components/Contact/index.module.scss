@@ -2,7 +2,7 @@
 @import '@styles/mixins';
 @import '@styles/keyframes';
 
-$size-times: var(--button-container-size-times);
+$size-times: var(--size-times);
 
 .contactPage {
 	height: 100%;
@@ -79,7 +79,7 @@ $size-times: var(--button-container-size-times);
 				border: 0.15rem solid $english-lavender;
 				height: 100%;
 				width: 100%;
-        font-size: 1.5rem;
+				font-size: 1.5rem;
 				outline: none;
 				color: $old-lavender;
 				padding: 0 1rem;
@@ -108,8 +108,8 @@ $size-times: var(--button-container-size-times);
 			}
 
 			textarea {
-        margin-bottom: 2rem;
-        height: calc(var(--textarea-height) - 2.75rem);
+				margin-bottom: 2rem;
+				height: calc(var(--textarea-height) - 2.75rem);
 				width: 100%;
 				font-size: 1.5rem;
 				background: $apricot;
@@ -128,7 +128,7 @@ $size-times: var(--button-container-size-times);
 
 		.input {
 			@extend .textarea;
-      height: 3.5rem;
+			height: 3.5rem;
 		}
 
 		.buttonContainer {
@@ -247,6 +247,8 @@ $size-times: var(--button-container-size-times);
 				justify-content: center;
 				align-items: center;
 				gap: 0.25rem;
+				filter: drop-shadow(0.25rem 0.25rem $old-lavender);
+				transition: 0.1s ease-in-out;
 
 				img {
 					filter: invert(1);
@@ -256,47 +258,30 @@ $size-times: var(--button-container-size-times);
 				}
 
 				&:hover {
+					filter: drop-shadow(0.25rem 0.5rem $old-lavender);
+
 					span {
 						animation: pointRight 1s infinite;
 					}
 				}
+
+        &:not(:hover) {
+          filter: drop-shadow(0.25rem 0.25rem $old-lavender);
+        }
 
 				span {
 					font-size: 2rem;
 					margin-bottom: 0.25rem;
 				}
 
-				&::before {
-					position: absolute;
-					content: '';
-					background: $old-lavender;
-					width: 100%;
-					height: 100%;
-					z-index: -1;
-					left: 0.25rem;
-				}
-
-				&:hover::before {
-					top: 0.5rem;
-					transition: 0.1s ease-in-out;
-				}
-
-				&:not(:hover)::before {
-					top: 0.25rem;
-					transition: 0.1s ease-in-out;
-				}
-
 				&:active {
 					background: $melon;
-					color: $old-lavender;
+					color: black;
+					filter: drop-shadow(0.25rem 0.5rem 2px $old-lavender);
 
 					img {
 						filter: invert(0);
 					}
-				}
-
-				&:active::before {
-					filter: blur(2px);
 				}
 			}
 		}
