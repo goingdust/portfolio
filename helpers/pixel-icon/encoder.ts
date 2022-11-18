@@ -9,7 +9,7 @@ export default class Encoder {
 	public encode(src: string) {
 		let result = ""
 		for (let position = 0; position < src.length; position += this.maxStringLength) {
-			const part = src.substr(position, this.maxStringLength)
+			const part = src.substring(position, this.maxStringLength)
 			const separator = result ? this.separator : ""
 			result += separator + parseInt(part, this.radix).toString(this.maxRadix)
 		}
