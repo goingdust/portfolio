@@ -1,18 +1,31 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useWindowSize from '../../../hooks/useWindowSize';
 import styles from './index.module.scss';
 
+const mobileSize = 40;
+const tabletSize = 50;
+const desktopSize = 60;
+
 const SkillIcons = () => {
-	const [iconSize, setIconSize] = useState(40);
+	const { isMobile, isTablet } = useWindowSize();
+	const [iconSize, setIconSize] = useState(
+		isMobile ? mobileSize : isTablet ? tabletSize : desktopSize
+	);
+
+	useEffect(() => {
+		if (isMobile) {
+			setIconSize(mobileSize);
+		} else if (isTablet) {
+			setIconSize(tabletSize);
+		} else {
+			setIconSize(desktopSize);
+		}
+	}, [isMobile, isTablet]);
 
 	return (
 		<div className={styles.iconsContainer}>
-			<a
-				href='https://www.typescriptlang.org/'
-				target='_blank'
-				rel='noreferrer'
-				text-decoration='none'
-			>
+			<a href='https://www.typescriptlang.org/' target='_blank' rel='noreferrer'>
 				<Image
 					src='https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-plain.svg'
 					alt='typescript'
