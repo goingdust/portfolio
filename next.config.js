@@ -10,6 +10,16 @@ const nextConfig = {
 		};
 		return config;
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'raw.githubusercontent.com',
+			},
+			{ protocol: 'https', hostname: 'www.vectorlogo.zone' },
+			{ protocol: 'https', hostname: 'cdn.worldvectorlogo.com' },
+		],
+	},
 };
 
 module.exports = nextConfig;
