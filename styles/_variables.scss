@@ -13,7 +13,7 @@ $options1: (
 );
 
 $h2-delay: calc((str-length($greeting) * $type-speed) + $default-delay + calc($type-speed * 6));
-$job-title: 'Front End Developer';
+$job-title: 'Full Stack Developer';
 $speeds2: (
 	type: $type-speed,
 );

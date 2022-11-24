@@ -28,7 +28,7 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-			width: 30.5rem;
+			width: 32rem;
 			@include for_breakpoint(mobile) {
 				width: fit-content;
 			}

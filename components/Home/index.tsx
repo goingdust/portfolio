@@ -82,7 +82,7 @@ const Home = () => {
 					</div>
 					<div className={styles.headingContainer}>
 						<h2 className={`${styles.homeSubtitle} ${h1Finished ? styles.show : ''}`} />
-						<h2 className={styles.homeSubtitleHidden}>Front End Developer</h2>
+						<h2 className={styles.homeSubtitleHidden}>Full Stack Developer</h2>
 					</div>
 				</header>
 				<Image
