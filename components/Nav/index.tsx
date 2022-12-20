@@ -68,14 +68,14 @@ const Nav = () => {
 							navVisible={navVisible}
 						/>
 					</li>
-					{/* <li>
+					<li>
 						<NavLinkItem
 							path='/about'
 							onClickHandler={navLinkItemClickHandler}
 							label='About'
 							navVisible={navVisible}
 						/>
-					</li> */}
+					</li>
 					<li>
 						<NavLinkItem
 							path='/contact'
